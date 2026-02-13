@@ -15,6 +15,10 @@ base_images:
     name: "4.16"
     namespace: ocp
     tag: cli
+  cli-jq:
+    name: cli-jq
+    namespace: ocp
+    tag: latest
   cluster-api-actuator-pkg-test:
     name: cluster-api-actuator-pkg-test
     namespace: ci
@@ -42,7 +46,7 @@ base_images:
   rosa-aws-cli:
     name: rosa-aws-cli
     namespace: ci
-    tag: release
+    tag: latest
   tests-private:
     name: tests-private
     namespace: ci
@@ -1456,6 +1460,86 @@ tests:
     test:
     - chain: openshift-e2e-test-qe-destructive
     workflow: cucushift-installer-rehearse-azure-stack-ipi
+- as: azure-stack-ipi-proxy-fips-f28-compliance
+  cluster: build01
+  cron: 14 14 25 * *
+  steps:
+    cluster_profile: azurestack-qe
+    env:
+      CATALOG_SOURCE_NAME: compliance-operator
+      EXTRACT_MANIFEST_INCLUDED: "true"
+      FILTERS_ADDITIONAL: ""
+      FIPS_ENABLED: "true"
+      TEST_FILTERS: ~HyperShiftMGMT&;~DEPRECATED&;~StressTest&;Disruptive&
+      TEST_SCENARIOS: Compliance_Operator
+      TEST_TIMEOUT: "55"
+    test:
+    - ref: file-integrity-konflux-catalogsource
+    - ref: etcd-encryption
+    - ref: openshift-extended-test-disruptive
+    - ref: openshift-e2e-test-qe-report
+    workflow: cucushift-installer-rehearse-azure-stack-ipi-proxy
+- as: azure-stack-ipi-proxy-fips-f28-compliance-destructive
+  cluster: build01
+  cron: 38 18 2 * *
+  steps:
+    cluster_profile: azurestack-qe
+    env:
+      CATALOG_SOURCE_NAME: compliance-operator
+      E2E_RUN_TAGS: '@complianceoperator'
+      EXTRACT_MANIFEST_INCLUDED: "true"
+      FILTERS_ADDITIONAL: ""
+      FIPS_ENABLED: "true"
+      TEST_FILTERS: ~HyperShiftMGMT&;~StressTest&;~DEPRECATED&;Disruptive&
+      TEST_SCENARIOS: Compliance_Operator
+      TEST_TIMEOUT: "55"
+    test:
+    - ref: file-integrity-konflux-catalogsource
+    - ref: etcd-encryption
+    - ref: openshift-extended-test-disruptive
+    - ref: openshift-extended-web-tests
+    - ref: openshift-e2e-test-qe-report
+    workflow: cucushift-installer-rehearse-azure-stack-ipi-proxy
+- as: azure-stack-ipi-proxy-fips-f999-file-integrity
+  cluster: build01
+  cron: 8 8 29 2 *
+  steps:
+    cluster_profile: azurestack-qe
+    env:
+      E2E_RUN_TAGS: '@fio'
+      EXTRACT_MANIFEST_INCLUDED: "true"
+      FILTERS_ADDITIONAL: ""
+      FIPS_ENABLED: "true"
+      TEST_FILTERS: ~HyperShiftMGMT&;~DEPRECATED&
+      TEST_PARALLEL: "3"
+      TEST_SCENARIOS: File_Integrity_Operator
+      TEST_TIMEOUT: "30"
+    test:
+    - ref: file-integrity-konflux-catalogsource
+    - ref: openshift-extended-test
+    - ref: openshift-extended-web-tests
+    - ref: openshift-e2e-test-qe-report
+    workflow: cucushift-installer-rehearse-azure-stack-ipi-proxy
+- as: azure-stack-ipi-proxy-fips-f28-security-profiles
+  cluster: build01
+  cron: 56 13 26 * *
+  steps:
+    cluster_profile: azurestack-qe
+    env:
+      CATALOG_SOURCE_NAME: security-profiles-operator
+      E2E_RUN_TAGS: '@spo'
+      EXTRACT_MANIFEST_INCLUDED: "true"
+      FILTERS_ADDITIONAL: ""
+      FIPS_ENABLED: "true"
+      TEST_FILTERS: ~HyperShiftMGMT&;~DEPRECATED&
+      TEST_PARALLEL: "3"
+      TEST_SCENARIOS: Security_Profiles_Operator|Node_Audit_Logging
+    test:
+    - ref: file-integrity-konflux-catalogsource
+    - ref: openshift-extended-test
+    - ref: openshift-extended-web-tests
+    - ref: openshift-e2e-test-qe-report
+    workflow: cucushift-installer-rehearse-azure-stack-ipi-proxy
 - as: azure-stack-ipi-proxy-fips-f28
   cluster: build01
   cron: 29 11 18 * *
@@ -1525,10 +1609,11 @@ tests:
     - chain: openshift-e2e-test-qe-destructive
     workflow: cucushift-installer-rehearse-azure-stack-upi
 - as: baremetalds-hypershift-agent-mce-dualstack-guest-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 53 3 13,27 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       DEVSCRIPTS_CONFIG: |
         IP_STACK=v4v6
@@ -1547,10 +1632,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-guest
 - as: baremetalds-hypershift-agent-mce-dualstack-guest-f14-des
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 13 18 5,19 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       DEVSCRIPTS_CONFIG: |
         IP_STACK=v4v6
@@ -1569,10 +1655,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-destructive
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-guest
 - as: baremetalds-hypershift-agent-mce-dualstack-mgmt-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 13 15 4,18 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       DEVSCRIPTS_CONFIG: |
         IP_STACK=v4v6
@@ -1589,10 +1676,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-mgmt
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce
 - as: baremetalds-hypershift-agent-mce-guest-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 31 15 8,24 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1602,10 +1690,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-guest
 - as: baremetalds-hypershift-agent-mce-guest-f28-destructive
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 49 19 28 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1615,10 +1704,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-destructive
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-guest
 - as: baremetalds-hypershift-agent-mce-mgmt-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 23 13 3,17 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1626,10 +1716,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-mgmt
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce
 - as: baremetalds-hypershift-agent-mce-disconnected-guest-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 40 23 6,20 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       E2E_RUN_TAGS: '@disconnected'
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
@@ -1640,10 +1731,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-disconnected-guest
 - as: baremetalds-hypershift-agent-mce-disconnected-guest-f14-des
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 6 12 14,28 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1653,10 +1745,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-destructive
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-disconnected-guest
 - as: baremetalds-hypershift-agent-mce-disconnected-mgmt-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 14 20 10,26 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1664,10 +1757,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-mgmt
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-disconnected
 - as: baremetalds-hypershift-agent-mce-n2minor-guest-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 35 3 28 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     dependencies:
       NODEPOOL_RELEASE_IMAGE_LATEST: release:n2minor
     env:
@@ -1679,10 +1773,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce-guest
 - as: baremetalds-hypershift-agent-mce-n2minor-mgmt-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 4 2 10 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     dependencies:
       NODEPOOL_RELEASE_IMAGE_LATEST: release:n2minor
     env:
@@ -1692,7 +1787,8 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-mgmt
     workflow: cucushift-installer-rehearse-baremetalds-assisted-hypershift-agent-mce
 - as: baremetalds-ipi-ovn-ipv4-fips-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 5 8 9 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1705,7 +1801,8 @@ tests:
     - chain: openshift-e2e-test-qe
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-ipv4-fips-f28-ui
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 29 11 30 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1718,7 +1815,8 @@ tests:
     - chain: openshift-e2e-test-qe-ui
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-ipv4-fips-f14-wrs
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 26 2 6,20 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1736,7 +1834,8 @@ tests:
     - chain: openshift-e2e-test-qe-automated-release
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-ipv4-fips-f28-destructive
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 31 5 29 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1749,7 +1848,8 @@ tests:
     - chain: openshift-e2e-test-qe-destructive
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-ipv6-fips-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 14 15 2 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1764,7 +1864,8 @@ tests:
     - chain: openshift-e2e-test-qe
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-ipv6-fips-f28-destructive
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 2 8 27 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1779,7 +1880,8 @@ tests:
     - chain: openshift-e2e-test-qe-destructive
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-dualstack-primaryv6-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 43 5 16,30 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1793,7 +1895,8 @@ tests:
     - chain: openshift-e2e-test-qe
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-dualstack-primaryv6-f28-destructive
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 18 12 13 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1807,7 +1910,8 @@ tests:
     - chain: openshift-e2e-test-qe-destructive
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-lvms-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 20 15 15 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1820,10 +1924,11 @@ tests:
     - ref: openshift-extended-test
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn-lvms
 - as: baremetalds-ipi-ovn-kubevirt-hypershift-mce-guest-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 51 17 7,21 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1834,10 +1939,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn-ipv4-kubevirt-hypershift-mce-guest
 - as: baremetalds-ipi-ovn-kubevirt-hypershift-mce-guest-f14-des
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 52 22 2,16 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1848,10 +1954,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-destructive
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn-ipv4-kubevirt-hypershift-mce-guest
 - as: baremetalds-ipi-ovn-kubevirt-hypershift-mce-mgmt-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 20 19 4,18 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.16
       MCE_VERSION: "2.6"
@@ -1860,7 +1967,8 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-mgmt
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn-ipv4-kubevirt-hypershift-mce
 - as: baremetalds-ipi-ovn-kubevirt-hcp-mce-multinet-guest-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 40 12 3,19 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1875,7 +1983,8 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn-ipv4-kubevirt-hypershift-mce-guest
 - as: baremetalds-ipi-ovn-kubevirt-hcp-mce-multinet-mgmt-f14
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 28 11 10,26 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -1888,10 +1997,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-mgmt
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn-ipv4-kubevirt-hypershift-mce
 - as: baremetalds-ipi-ovn-kubevirt-hypershift-mce-n2minor-mgmt-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 16 14 27 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     dependencies:
       NODEPOOL_RELEASE_IMAGE_LATEST: release:n2minor
     env:
@@ -1902,10 +2012,11 @@ tests:
     - chain: openshift-e2e-test-hypershift-qe-mgmt
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn-ipv4-kubevirt-hypershift-mce
 - as: baremetalds-ipi-ovn-kubevirt-hypershift-mce-n2minor-guest-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 57 23 5 * *
   steps:
-    cluster_profile: equinix-ocp-metal-qe
+    cluster_profile: equinix-ocp-hcp
     dependencies:
       NODEPOOL_RELEASE_IMAGE_LATEST: release:n2minor
     env:
@@ -2205,8 +2316,8 @@ tests:
     test:
     - chain: openshift-e2e-test-clusterinfra-qe-longrun
     workflow: cucushift-installer-rehearse-ibmcloud-ipi-ovn-ipsec
-- as: ibmcloud-ipi-ovn-mtu-migrate-f28
-  cron: 7 1 12 * *
+- as: ibmcloud-ipi-ovn-mtu-migrate-f999
+  cron: 8 16 29 2 *
   steps:
     cluster_profile: ibmcloud-qe
     test:
@@ -2229,80 +2340,6 @@ tests:
       FIPS_ENABLED: "true"
     test:
     - chain: openshift-e2e-test-qe-destructive
-    workflow: cucushift-installer-rehearse-ibmcloud-ipi-private
-- as: ibmcloud-ipi-private-fips-f28-compliance
-  cron: 4 11 12 * *
-  steps:
-    cluster_profile: ibmcloud-qe
-    env:
-      CATALOG_SOURCE_NAME: compliance-operator
-      FILTERS_ADDITIONAL: ""
-      FIPS_ENABLED: "true"
-      MULTISTAGE_PARAM_OVERRIDE_INDEX_IMAGE: quay.io/redhat-user-workloads/ocp-isc-tenant/compliance-operator-fbc-4-16@sha256:358f5bca2ade0f18ce0e21c697aacdf1c61b211b19f7c1bd12739bee1904e323
-      TEST_FILTERS: ~HyperShiftMGMT&;~DEPRECATED&;~Disruptive&
-      TEST_PARALLEL: "3"
-      TEST_SCENARIOS: Compliance_Operator
-      TEST_TIMEOUT: "20"
-    test:
-    - ref: file-integrity-konflux-catalogsource
-    - ref: etcd-encryption
-    - ref: openshift-extended-test
-    - ref: openshift-e2e-test-qe-report
-    workflow: cucushift-installer-rehearse-ibmcloud-ipi-private
-- as: ibmcloud-ipi-private-fips-f28-compliance-destructive
-  cron: 8 12 27 * *
-  steps:
-    cluster_profile: ibmcloud-qe
-    env:
-      CATALOG_SOURCE_NAME: compliance-operator
-      E2E_RUN_TAGS: '@complianceoperator'
-      FILTERS_ADDITIONAL: ""
-      FIPS_ENABLED: "true"
-      MULTISTAGE_PARAM_OVERRIDE_INDEX_IMAGE: quay.io/redhat-user-workloads/ocp-isc-tenant/compliance-operator-fbc-4-16@sha256:358f5bca2ade0f18ce0e21c697aacdf1c61b211b19f7c1bd12739bee1904e323
-      TEST_FILTERS: ~HyperShiftMGMT&;~DEPRECATED&;~StressTest&;Disruptive&
-      TEST_SCENARIOS: Compliance_Operator
-      TEST_TIMEOUT: "55"
-    test:
-    - ref: file-integrity-konflux-catalogsource
-    - ref: etcd-encryption
-    - ref: openshift-extended-test-disruptive
-    - ref: openshift-extended-web-tests
-    - ref: openshift-e2e-test-qe-report
-    workflow: cucushift-installer-rehearse-ibmcloud-ipi-private
-- as: ibmcloud-ipi-private-fips-f999-file-integrity
-  cron: 8 8 29 2 *
-  steps:
-    cluster_profile: ibmcloud-qe
-    env:
-      E2E_RUN_TAGS: '@fio'
-      FILTERS_ADDITIONAL: ""
-      FIPS_ENABLED: "true"
-      MULTISTAGE_PARAM_OVERRIDE_INDEX_IMAGE: quay.io/redhat-user-workloads/ocp-isc-tenant/file-integrity-operator-fbc-4-16:latest
-      TEST_FILTERS: ~HyperShiftMGMT&;~DEPRECATED&
-      TEST_PARALLEL: "3"
-      TEST_SCENARIOS: File_Integrity_Operator
-      TEST_TIMEOUT: "30"
-    test:
-    - ref: file-integrity-konflux-catalogsource
-    - ref: openshift-extended-test
-    - ref: openshift-extended-web-tests
-    - ref: openshift-e2e-test-qe-report
-    workflow: cucushift-installer-rehearse-ibmcloud-ipi-private
-- as: ibmcloud-ipi-private-fips-f28-security-profiles
-  cron: 6 12 24 * *
-  steps:
-    cluster_profile: ibmcloud-qe
-    env:
-      E2E_RUN_TAGS: '@spo'
-      FILTERS_ADDITIONAL: ""
-      FIPS_ENABLED: "true"
-      TEST_FILTERS: ~HyperShiftMGMT&;~DEPRECATED&
-      TEST_PARALLEL: "3"
-      TEST_SCENARIOS: Security_Profiles_Operator
-    test:
-    - ref: openshift-extended-test
-    - ref: openshift-extended-web-tests
-    - ref: openshift-e2e-test-qe-report
     workflow: cucushift-installer-rehearse-ibmcloud-ipi-private
 - as: ibmcloud-ipi-proxy-private-rt-f28
   cron: 5 8 26 * *
@@ -2459,6 +2496,7 @@ tests:
     env:
       EXTRACT_MANIFEST_INCLUDED: "true"
       FIPS_ENABLED: "true"
+      TEST_FILTERS_CLUSTERINFRASTRUCTURE: disruptive&&!autoscaler&&!connected-only
     test:
     - chain: openshift-e2e-test-clusterinfra-qe-longrun
     workflow: cucushift-installer-rehearse-nutanix-ipi-proxy-minimal-permission
@@ -3183,6 +3221,108 @@ tests:
     test:
     - chain: openshift-e2e-test-qe
     workflow: baremetal-lab-upi-dual-stack
+- as: baremetal-upi-ovn-ipsec-dualstack-fips-f360
+  capabilities:
+  - intranet
+  cron: 21 14 7 6 *
+  steps:
+    cluster_profile: equinix-ocp-metal-qe
+    env:
+      AUX_HOST: openshift-qe-metal-ci.arm.eng.rdu2.redhat.com
+      FIPS_ENABLED: "true"
+      IPSEC_OVN: "true"
+      architecture: amd64
+      masters: "3"
+      workers: "2"
+    test:
+    - chain: openshift-e2e-test-qe
+    workflow: baremetal-lab-upi-dual-stack
+- as: baremetal-upi-ovn-ipsec-ipv6-fips-f360
+  capabilities:
+  - intranet
+  cron: 34 12 21 7 *
+  steps:
+    cluster_profile: equinix-ocp-metal-qe
+    env:
+      AUX_HOST: openshift-qe-metal-ci.arm.eng.rdu2.redhat.com
+      FIPS_ENABLED: "true"
+      IPSEC_OVN: "true"
+      architecture: amd64
+      masters: "3"
+      workers: "2"
+    test:
+    - chain: openshift-e2e-test-qe
+    workflow: baremetal-lab-upi-ipv6-static
+- as: baremetal-upi-ovn-ipv4-disconnected-ipsec-fips-f360
+  capabilities:
+  - intranet
+  cron: 24 17 7 1 *
+  steps:
+    cluster_profile: equinix-ocp-metal-qe
+    env:
+      AUX_HOST: openshift-qe-metal-ci.arm.eng.rdu2.redhat.com
+      E2E_RUN_TAGS: '@disconnected'
+      FIPS_ENABLED: "true"
+      IPSEC_OVN: "true"
+      TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~ConnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&
+      architecture: amd64
+      masters: "3"
+      workers: "2"
+    test:
+    - chain: openshift-e2e-test-qe
+    workflow: baremetal-lab-upi-install-disconnected
+- as: baremetalds-ipi-ovn-dualstack-primaryv6-f28-virt-netobserv
+  capabilities:
+  - intranet
+  cron: 19 1 3 * *
+  steps:
+    cluster_profile: equinix-ocp-metal-qe
+    env:
+      DEVSCRIPTS_CONFIG: |
+        IP_STACK=v6v4
+        MIRROR_IMAGES=true
+        INSTALLER_PROXY=true
+        NETWORK_TYPE=OVNKubernetes
+      TEST_FILTERS: Network_Observability
+      TEST_IMPORTANCE: .*
+      TEST_SCENARIOS: with VMs
+      TEST_TIMEOUT: "55"
+    test:
+    - chain: openshift-e2e-test-netobserv-prepare-bm-cluster
+    - chain: openshift-e2e-test-netobserv-qe
+    workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
+- as: baremetalds-ipi-ovn-dualstack-primaryv6-f28-ipv6-netobserv
+  capabilities:
+  - intranet
+  cron: 51 3 4 * *
+  steps:
+    cluster_profile: equinix-ocp-metal-qe
+    env:
+      DEVSCRIPTS_CONFIG: |
+        IP_STACK=v6v4
+        MIRROR_IMAGES=true
+        INSTALLER_PROXY=true
+        NETWORK_TYPE=OVNKubernetes
+      TEST_FILTERS: Network_Observability
+      TEST_IMPORTANCE: .*
+      TEST_SCENARIOS: "53844"
+      TEST_TIMEOUT: "55"
+    test:
+    - chain: openshift-e2e-test-netobserv-prepare-bm-cluster
+    - chain: openshift-e2e-test-netobserv-qe
+    workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
+- as: vsphere-ipi-amd-f28-ipsec-netobserv
+  cron: 52 13 7 * *
+  steps:
+    cluster_profile: vsphere-elastic
+    env:
+      TEST_FILTERS: Network_Observability
+      TEST_IMPORTANCE: .*
+      TEST_SCENARIOS: "82637"
+      TEST_TIMEOUT: "55"
+    test:
+    - chain: openshift-e2e-test-netobserv-qe
+    workflow: cucushift-installer-rehearse-vsphere-ipi-ovn-ipsec
 zz_generated_metadata:
   branch: release-4.16
   org: openshift

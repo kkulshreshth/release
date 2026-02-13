@@ -24,8 +24,7 @@ export KUBECONFIG=$KUBECONFIG_BAK
 # Starting in 4.21, we will aggressively retry test failures only in
 # presubmits to determine if a failure is a flake or legitimate. This is
 # to reduce the number of retests on PR's.
-# TODO: Remove "origin" and run everywhere
-if [[ "$JOB_TYPE" == "presubmit" && ( "$PULL_BASE_REF" == "main" || "$PULL_BASE_REF" == "master" ) && "$REPO_NAME" == "origin" ]]; then
+if [[ "$JOB_TYPE" == "presubmit" && ( "$PULL_BASE_REF" == "main" || "$PULL_BASE_REF" == "master" ) ]]; then
     if openshift-tests run --help | grep -q 'retry-strategy'; then
         TEST_ARGS+=" --retry-strategy=aggressive"
     fi
@@ -310,11 +309,21 @@ function suite() {
         TEST_ARGS="${TEST_ARGS:-} --file /tmp/tests"
     fi &&
 
+    # Determine max parallel tests if not already specified in TEST_ARGS
+    MAX_PARALLEL_ARGS="" &&
+    if [[ ! "${TEST_ARGS:-}" =~ --max-parallel-tests ]]; then
+        if [[ "${TEST_SUITE}" =~ serial ]]; then
+            MAX_PARALLEL_ARGS="--max-parallel-tests 1"
+        else
+            MAX_PARALLEL_ARGS="--max-parallel-tests 15"
+        fi
+    fi &&
+
     set -x &&
     openshift-tests run "${TEST_SUITE}" ${TEST_ARGS:-} \
         --provider "${TEST_PROVIDER}" \
         -o "${ARTIFACT_DIR}/e2e.log" \
-        --max-parallel-tests 15 \
+        ${MAX_PARALLEL_ARGS} \
         --junit-dir "${ARTIFACT_DIR}/junit" &
     wait "$!" &&
     set +x

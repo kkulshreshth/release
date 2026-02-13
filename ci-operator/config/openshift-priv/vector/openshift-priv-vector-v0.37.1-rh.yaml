@@ -51,7 +51,7 @@ build_root:
   image_stream_tag:
     name: release
     namespace: openshift
-    tag: golang-1.23
+    tag: rhel-9-release-golang-1.23-openshift-4.20
 canonical_go_repository: github.com/ViaQ/vector
 images:
 - dockerfile_path: Dockerfile
@@ -134,7 +134,6 @@ tests:
           cpu: 100m
       timeout: 3h0m0s
     workflow: generic-claim
-  timeout: 5h0m0s
 - as: clo-functional
   cluster_claim:
     architecture: amd64

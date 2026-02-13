@@ -30,10 +30,6 @@ ref:
     default: "qe"
     documentation: |-
       Set es type to internal or qe for getting data
-  - name: CONFIG
-    default: "examples/small-scale-udn-l3.yaml"
-    documentation: |-
-      Configuration file to run orion on
   - name: UUID
     default: ""
     documentation: |-
@@ -74,6 +70,10 @@ ref:
     default: ""
     documentation:
       Comma separated list of envs that needs to exported in runtime for templated configurations.
+  - name: DISPLAY
+    default: ""
+    documentation:
+      Display custom metadata fields, like ocpVirtVersion, osImage, etc.
   commands: openshift-qe-orion-udn-l3-commands.sh
   timeout: 6h
   credentials:

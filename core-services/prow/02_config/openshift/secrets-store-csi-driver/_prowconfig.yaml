@@ -11,6 +11,9 @@ tide:
     - openshift-4.17
     - openshift-4.18
     - openshift-4.19
+    - openshift-4.20
+    - openshift-4.21
+    - openshift-4.22
     - openshift-4.9
     - release-4.10
     - release-4.11
@@ -22,12 +25,16 @@ tide:
     - release-4.17
     - release-4.18
     - release-4.19
+    - release-4.20
+    - release-4.21
+    - release-4.22
     - release-4.9
     labels:
     - approved
     - backport-risk-assessed
     - jira/valid-bug
     - lgtm
+    - staff-eng-approved
     - verified
     missingLabels:
     - backports/unvalidated-commits
@@ -39,13 +46,13 @@ tide:
     repos:
     - openshift/secrets-store-csi-driver
   - includedBranches:
-    - openshift-4.20
-    - release-4.20
+    - openshift-4.22
+    - release-4.22
     labels:
     - approved
-    - backport-risk-assessed
     - jira/valid-bug
     - lgtm
+    - staff-eng-approved
     - verified
     missingLabels:
     - backports/unvalidated-commits
@@ -89,6 +96,7 @@ tide:
     - openshift-4.19
     - openshift-4.20
     - openshift-4.21
+    - openshift-4.22
     - openshift-4.9
     - release-4.10
     - release-4.11
@@ -102,6 +110,7 @@ tide:
     - release-4.19
     - release-4.20
     - release-4.21
+    - release-4.22
     - release-4.9
     labels:
     - approved
@@ -131,6 +140,7 @@ tide:
     - openshift-4.19
     - openshift-4.20
     - openshift-4.21
+    - openshift-4.22
     - openshift-4.9
     - release-4.10
     - release-4.11
@@ -144,6 +154,7 @@ tide:
     - release-4.19
     - release-4.20
     - release-4.21
+    - release-4.22
     - release-4.9
     labels:
     - approved

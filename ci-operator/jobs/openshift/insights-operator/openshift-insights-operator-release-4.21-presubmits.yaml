@@ -10,7 +10,7 @@ presubmits:
     decorate: true
     labels:
       ci-operator.openshift.io/cloud: gcp
-      ci-operator.openshift.io/cloud-cluster-profile: gcp-3
+      ci-operator.openshift.io/cloud-cluster-profile: gcp
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-insights-operator-release-4.21-e2e
@@ -78,7 +78,7 @@ presubmits:
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build02
+    cluster: build10
     context: ci/prow/e2e-agnostic-upgrade
     decorate: true
     labels:
@@ -156,7 +156,7 @@ presubmits:
     decorate: true
     labels:
       ci-operator.openshift.io/cloud: gcp
-      ci-operator.openshift.io/cloud-cluster-profile: gcp-3
+      ci-operator.openshift.io/cloud-cluster-profile: gcp
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-insights-operator-release-4.21-e2e-gcp-ovn-techpreview
@@ -223,19 +223,18 @@ presubmits:
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build05
+    cluster: build07
     context: ci/prow/e2e-metal-ipi-ovn-ipv6
     decorate: true
     labels:
+      capability/intranet: intranet
       ci-operator.openshift.io/cloud: equinix-ocp-metal
       ci-operator.openshift.io/cloud-cluster-profile: equinix-ocp-metal
-      ci-operator.openshift.io/cluster: build05
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-insights-operator-release-4.21-e2e-metal-ipi-ovn-ipv6
     optional: true
     rerun_command: /test e2e-metal-ipi-ovn-ipv6
-    skip_if_only_changed: ^docs/|\.(md|adoc)$|^(README|LICENSE|OWNERS)$|_test.go$
     spec:
       containers:
       - args:
@@ -298,7 +297,7 @@ presubmits:
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build02
+    cluster: build10
     context: ci/prow/images
     decorate: true
     labels:
@@ -313,6 +312,7 @@ presubmits:
         - --image-import-pull-secret=/etc/pull-secret/.dockerconfigjson
         - --report-credentials-file=/etc/report/credentials
         - --target=[images]
+        - --target=[release:latest]
         command:
         - ci-operator
         image: quay-proxy.ci.openshift.org/openshift/ci:ci_ci-operator_latest
@@ -424,7 +424,7 @@ presubmits:
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build02
+    cluster: build10
     context: ci/prow/lint
     decorate: true
     labels:
@@ -473,23 +473,24 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )lint,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
     cluster: build01
-    context: ci/prow/periodics-e2e-aws-single-node-insights-runtime-extractor-tests
+    context: ci/prow/okd-scos-e2e-aws-ovn
     decorate: true
+    decoration_config:
+      skip_cloning: true
     labels:
       ci-operator.openshift.io/cloud: aws
-      ci-operator.openshift.io/cloud-cluster-profile: aws-3
-      ci-operator.openshift.io/variant: periodics
+      ci-operator.openshift.io/cloud-cluster-profile: aws
+      ci-operator.openshift.io/variant: okd-scos
       ci.openshift.io/generator: prowgen
-      job-release: "4.21"
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
-    name: pull-ci-openshift-insights-operator-release-4.21-periodics-e2e-aws-single-node-insights-runtime-extractor-tests
+    name: pull-ci-openshift-insights-operator-release-4.21-okd-scos-e2e-aws-ovn
     optional: true
-    rerun_command: /test periodics-e2e-aws-single-node-insights-runtime-extractor-tests
+    rerun_command: /test okd-scos-e2e-aws-ovn
     spec:
       containers:
       - args:
@@ -498,8 +499,8 @@ presubmits:
         - --lease-server-credentials-file=/etc/boskos/credentials
         - --report-credentials-file=/etc/report/credentials
         - --secret-dir=/secrets/ci-pull-credentials
-        - --target=e2e-aws-single-node-insights-runtime-extractor-tests
-        - --variant=periodics
+        - --target=e2e-aws-ovn
+        - --variant=okd-scos
         command:
         - ci-operator
         image: quay-proxy.ci.openshift.org/openshift/ci:ci_ci-operator_latest
@@ -547,35 +548,32 @@ presubmits:
       - name: result-aggregator
         secret:
           secretName: result-aggregator
-    trigger: (?m)^/test( | .* )periodics-e2e-aws-single-node-insights-runtime-extractor-tests,?($|\s.*)
+    trigger: (?m)^/test( | .* )okd-scos-e2e-aws-ovn,?($|\s.*)
   - agent: kubernetes
     always_run: true
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build01
-    context: ci/prow/periodics-e2e-aws-single-node-techpreview
+    cluster: build10
+    context: ci/prow/okd-scos-images
     decorate: true
+    decoration_config:
+      skip_cloning: true
     labels:
-      ci-operator.openshift.io/cloud: aws
-      ci-operator.openshift.io/cloud-cluster-profile: aws-3
-      ci-operator.openshift.io/variant: periodics
+      ci-operator.openshift.io/variant: okd-scos
       ci.openshift.io/generator: prowgen
-      job-release: "4.21"
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
-    name: pull-ci-openshift-insights-operator-release-4.21-periodics-e2e-aws-single-node-techpreview
-    optional: true
-    rerun_command: /test periodics-e2e-aws-single-node-techpreview
+    name: pull-ci-openshift-insights-operator-release-4.21-okd-scos-images
+    rerun_command: /test okd-scos-images
     spec:
       containers:
       - args:
         - --gcs-upload-secret=/secrets/gcs/service-account.json
         - --image-import-pull-secret=/etc/pull-secret/.dockerconfigjson
-        - --lease-server-credentials-file=/etc/boskos/credentials
         - --report-credentials-file=/etc/report/credentials
-        - --secret-dir=/secrets/ci-pull-credentials
-        - --target=e2e-aws-single-node-techpreview
-        - --variant=periodics
+        - --target=[images]
+        - --target=[release:latest]
+        - --variant=okd-scos
         command:
         - ci-operator
         image: quay-proxy.ci.openshift.org/openshift/ci:ci_ci-operator_latest
@@ -585,12 +583,6 @@ presubmits:
           requests:
             cpu: 10m
         volumeMounts:
-        - mountPath: /etc/boskos
-          name: boskos
-          readOnly: true
-        - mountPath: /secrets/ci-pull-credentials
-          name: ci-pull-credentials
-          readOnly: true
         - mountPath: /secrets/gcs
           name: gcs-credentials
           readOnly: true
@@ -605,15 +597,6 @@ presubmits:
           readOnly: true
       serviceAccountName: ci-operator
       volumes:
-      - name: boskos
-        secret:
-          items:
-          - key: credentials
-            path: credentials
-          secretName: boskos-credentials
-      - name: ci-pull-credentials
-        secret:
-          secretName: ci-pull-credentials
       - name: manifest-tool-local-pusher
         secret:
           secretName: manifest-tool-local-pusher
@@ -623,13 +606,13 @@ presubmits:
       - name: result-aggregator
         secret:
           secretName: result-aggregator
-    trigger: (?m)^/test( | .* )periodics-e2e-aws-single-node-techpreview,?($|\s.*)
+    trigger: (?m)^/test( | .* )okd-scos-images,?($|\s.*)
   - agent: kubernetes
     always_run: true
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build02
+    cluster: build10
     context: ci/prow/periodics-images
     decorate: true
     labels:
@@ -685,7 +668,7 @@ presubmits:
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build02
+    cluster: build10
     context: ci/prow/unit
     decorate: true
     labels:
@@ -745,7 +728,7 @@ presubmits:
     branches:
     - ^release-4\.21$
     - ^release-4\.21-
-    cluster: build02
+    cluster: build10
     context: ci/prow/verify-deps
     decorate: true
     labels:

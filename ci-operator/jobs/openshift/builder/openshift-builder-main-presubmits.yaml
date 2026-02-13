@@ -162,7 +162,6 @@ presubmits:
     name: pull-ci-openshift-builder-main-e2e-aws-ovn-builds-techpreview
     optional: true
     rerun_command: /test e2e-aws-ovn-builds-techpreview
-    skip_if_only_changed: ^docs/|\.md$|^(?:.*/)?(?:\.gitignore|OWNERS|PROJECT|LICENSE)$
     spec:
       containers:
       - args:
@@ -236,7 +235,6 @@ presubmits:
     name: pull-ci-openshift-builder-main-e2e-aws-ovn-cgroupsv2
     optional: true
     rerun_command: /test e2e-aws-ovn-cgroupsv2
-    skip_if_only_changed: ^docs/|\.md$|^(?:.*/)?(?:\.gitignore|OWNERS|PROJECT|LICENSE)$
     spec:
       containers:
       - args:
@@ -383,7 +381,6 @@ presubmits:
     name: pull-ci-openshift-builder-main-e2e-aws-ovn-proxy
     optional: true
     rerun_command: /test e2e-aws-ovn-proxy
-    skip_if_only_changed: ^docs/|\.md$|^(?:.*/)?(?:\.gitignore|OWNERS|PROJECT|LICENSE)$
     spec:
       containers:
       - args:
@@ -446,7 +443,7 @@ presubmits:
     branches:
     - ^main$
     - ^main-
-    cluster: build07
+    cluster: build10
     context: ci/prow/images
     decorate: true
     labels:
@@ -514,7 +511,6 @@ presubmits:
     name: pull-ci-openshift-builder-main-okd-scos-e2e-aws-ovn
     optional: true
     rerun_command: /test okd-scos-e2e-aws-ovn
-    skip_if_only_changed: ^docs/|\.md$|^(?:.*/)?(?:\.gitignore|OWNERS|PROJECT|LICENSE)$
     spec:
       containers:
       - args:
@@ -578,7 +574,7 @@ presubmits:
     branches:
     - ^main$
     - ^main-
-    cluster: build07
+    cluster: build10
     context: ci/prow/okd-scos-images
     decorate: true
     decoration_config:
@@ -636,7 +632,7 @@ presubmits:
     branches:
     - ^main$
     - ^main-
-    cluster: build07
+    cluster: build10
     context: ci/prow/security
     decorate: true
     labels:
@@ -697,7 +693,7 @@ presubmits:
     branches:
     - ^main$
     - ^main-
-    cluster: build07
+    cluster: build10
     context: ci/prow/unit
     decorate: true
     labels:
@@ -751,7 +747,7 @@ presubmits:
     branches:
     - ^main$
     - ^main-
-    cluster: build07
+    cluster: build10
     context: ci/prow/verify
     decorate: true
     labels:
@@ -805,7 +801,7 @@ presubmits:
     branches:
     - ^main$
     - ^main-
-    cluster: build07
+    cluster: build10
     context: ci/prow/verify-deps
     decorate: true
     labels:

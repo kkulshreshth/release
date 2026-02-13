@@ -2,14 +2,15 @@ build_root:
   image_stream_tag:
     name: release
     namespace: openshift
-    tag: golang-1.12
+    tag: rhel-golang-1.12
 images:
 - dockerfile_path: kubefed-operator-ci.Dockerfile
   from: root
   to: kubefed-operator
 promotion:
   to:
-  - name: "4.22"
+  - disabled: true
+    name: "4.22"
     namespace: ocp
 releases:
   initial:

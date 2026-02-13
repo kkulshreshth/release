@@ -20,6 +20,7 @@ repositories:
   openshift-priv/aws-efs-utils: openshift/aws-efs-utils
   openshift-priv/aws-encryption-provider: openshift/aws-encryption-provider
   openshift-priv/aws-karpenter-provider-aws: openshift/aws-karpenter-provider-aws
+  openshift-priv/aws-node-termination-handler: openshift/aws-node-termination-handler
   openshift-priv/aws-pod-identity-webhook: openshift/aws-pod-identity-webhook
   openshift-priv/azure-disk-csi-driver: openshift/azure-disk-csi-driver
   openshift-priv/azure-disk-csi-driver-operator: openshift/azure-disk-csi-driver-operator
@@ -119,11 +120,13 @@ repositories:
   openshift-priv/containernetworking-plugins: openshift/containernetworking-plugins
   openshift-priv/contour: openshift/contour
   openshift-priv/contour-operator: openshift/contour-operator
+  openshift-priv/controller-runtime-common: openshift/controller-runtime-common
   openshift-priv/coredns: openshift/coredns
   openshift-priv/coredns-ocp-dnsnameresolver: openshift/coredns-ocp-dnsnameresolver
   openshift-priv/crane: migtools/crane
   openshift-priv/crd-schema-checker: openshift/crd-schema-checker
   openshift-priv/crd-schema-gen: openshift/crd-schema-gen
+  openshift-priv/crio-credential-provider: openshift/crio-credential-provider
   openshift-priv/csi-driver-manila-operator: openshift/csi-driver-manila-operator
   openshift-priv/csi-driver-nfs: openshift/csi-driver-nfs
   openshift-priv/csi-driver-shared-resource: openshift/csi-driver-shared-resource
@@ -176,7 +179,6 @@ repositories:
   openshift-priv/insights-operator: openshift/insights-operator
   openshift-priv/insights-runtime-extractor: openshift/insights-runtime-extractor
   openshift-priv/installer: openshift/installer
-  openshift-priv/installer-aro: openshift/installer-aro
   openshift-priv/installer-aro-wrapper: openshift/installer-aro-wrapper
   openshift-priv/instaslice-operator: openshift/instaslice-operator
   openshift-priv/ironic-agent-image: openshift/ironic-agent-image
@@ -185,6 +187,7 @@ repositories:
   openshift-priv/ironic-inspector-image: openshift/ironic-inspector-image
   openshift-priv/ironic-ipa-downloader: openshift/ironic-ipa-downloader
   openshift-priv/ironic-rhcos-downloader: openshift/ironic-rhcos-downloader
+  openshift-priv/ironic-standalone-operator: openshift/ironic-standalone-operator
   openshift-priv/ironic-static-ip-manager: openshift/ironic-static-ip-manager
   openshift-priv/jenkins: openshift/jenkins
   openshift-priv/jenkins-client-plugin: openshift/jenkins-client-plugin
@@ -239,13 +242,13 @@ repositories:
   openshift-priv/kubernetes-sigs-structured-merge-diff: openshift/kubernetes-sigs-structured-merge-diff
   openshift-priv/kubevirt-csi-driver: openshift/kubevirt-csi-driver
   openshift-priv/kubevirt-velero-plugin: migtools/kubevirt-velero-plugin
-  openshift-priv/kueue-operator: openshift/kueue-operator
   openshift-priv/kuryr-kubernetes: openshift/kuryr-kubernetes
   openshift-priv/leader-elector: openshift/leader-elector
   openshift-priv/library-go: openshift/library-go
   openshift-priv/linuxptp-daemon: openshift/linuxptp-daemon
   openshift-priv/local-storage-operator: openshift/local-storage-operator
   openshift-priv/log-file-metric-exporter: ViaQ/log-file-metric-exporter
+  openshift-priv/loki: openshift/loki
   openshift-priv/lvm-operator: openshift/lvm-operator
   openshift-priv/lws-operator: openshift/lws-operator
   openshift-priv/machine-api-operator: openshift/machine-api-operator
@@ -269,6 +272,18 @@ repositories:
   openshift-priv/mig-operator: migtools/mig-operator
   openshift-priv/mig-ui: migtools/mig-ui
   openshift-priv/monitoring-plugin: openshift/monitoring-plugin
+  openshift-priv/mta-analyzer-lsp: migtools/mta-analyzer-lsp
+  openshift-priv/mta-c-sharp-analyzer-provider: migtools/mta-c-sharp-analyzer-provider
+  openshift-priv/mta-java-analyzer-bundle: migtools/mta-java-analyzer-bundle
+  openshift-priv/mta-kai: migtools/mta-kai
+  openshift-priv/mta-kantra: migtools/mta-kantra
+  openshift-priv/mta-operator: migtools/mta-operator
+  openshift-priv/mta-static-report: migtools/mta-static-report
+  openshift-priv/mta-tackle2-addon-analyzer: migtools/mta-tackle2-addon-analyzer
+  openshift-priv/mta-tackle2-addon-discovery: migtools/mta-tackle2-addon-discovery
+  openshift-priv/mta-tackle2-addon-platform: migtools/mta-tackle2-addon-platform
+  openshift-priv/mta-tackle2-hub: migtools/mta-tackle2-hub
+  openshift-priv/mta-tackle2-ui: migtools/mta-tackle2-ui
   openshift-priv/multi-operator-manager: openshift/multi-operator-manager
   openshift-priv/multiarch-tuning-operator: openshift/multiarch-tuning-operator
   openshift-priv/multus-admission-controller: openshift/multus-admission-controller
@@ -295,10 +310,12 @@ repositories:
   openshift-priv/oauth-apiserver: openshift/oauth-apiserver
   openshift-priv/oauth-proxy: openshift/oauth-proxy
   openshift-priv/oauth-server: openshift/oauth-server
+  openshift-priv/observatorium-api: ViaQ/observatorium-api
   openshift-priv/oc: openshift/oc
   openshift-priv/oc-mirror: openshift/oc-mirror
   openshift-priv/ocp-build-data: openshift-eng/ocp-build-data
   openshift-priv/ocp-release-operator-sdk: openshift/ocp-release-operator-sdk
+  openshift-priv/opa-openshift: ViaQ/opa-openshift
   openshift-priv/openldap: openshift/openldap
   openshift-priv/openshift-ansible: openshift/openshift-ansible
   openshift-priv/openshift-apiserver: openshift/openshift-apiserver
@@ -312,6 +329,7 @@ repositories:
   openshift-priv/openstack-ironic: openshift/openstack-ironic
   openshift-priv/openstack-ironic-inspector: openshift/openstack-ironic-inspector
   openshift-priv/openstack-ironic-lib: openshift/openstack-ironic-lib
+  openshift-priv/openstack-ironic-prometheus-exporter: openshift/openstack-ironic-prometheus-exporter
   openshift-priv/openstack-ironic-python-agent: openshift/openstack-ironic-python-agent
   openshift-priv/openstack-resource-controller: openshift/openstack-resource-controller
   openshift-priv/openstack-sushy: openshift/openstack-sushy

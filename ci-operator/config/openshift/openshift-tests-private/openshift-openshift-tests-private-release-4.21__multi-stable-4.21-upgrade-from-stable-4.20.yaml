@@ -42,13 +42,10 @@ releases:
       channel: candidate
       version: "4.20"
   target:
-    prerelease:
+    release:
       architecture: multi
-      product: ocp
-      version_bounds:
-        lower: 4.21.0-0
-        stream: 4-dev-preview
-        upper: 4.22.0-0
+      channel: candidate
+      version: "4.21"
 resources:
   '*':
     requests:
@@ -153,8 +150,8 @@ tests:
   steps:
     cluster_profile: gcp-qe
     env:
-      COMPUTE_SERVICE_ACCOUNT: jiwei-worker-sa@openshift-qe.iam.gserviceaccount.com
-      CONTROL_PLANE_SERVICE_ACCOUNT: jiwei-control-plane-sa@openshift-qe.iam.gserviceaccount.com
+      COMPUTE_SERVICE_ACCOUNT: jiwei-worker-sa
+      CONTROL_PLANE_SERVICE_ACCOUNT: jiwei-control-plane-sa
       FIPS_ENABLED: "true"
     test:
     - chain: openshift-upgrade-qe-sanity

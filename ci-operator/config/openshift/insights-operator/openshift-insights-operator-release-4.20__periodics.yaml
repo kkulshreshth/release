@@ -11,14 +11,6 @@ base_images:
     name: insights-operator-tests
     namespace: ci
     tag: "4.20"
-  ocp_4.20_base-rhel9:
-    name: "4.20"
-    namespace: ocp
-    tag: base-rhel9
-  ocp_builder_rhel-9-golang-1.24-openshift-4.20:
-    name: builder
-    namespace: ocp
-    tag: rhel-9-golang-1.24-openshift-4.20
   upi-installer:
     name: "4.20"
     namespace: ocp
@@ -27,13 +19,6 @@ build_root:
   from_repository: true
 images:
 - dockerfile_path: Dockerfile
-  inputs:
-    ocp_4.20_base-rhel9:
-      as:
-      - registry.ci.openshift.org/ocp/4.20:base-rhel9
-    ocp_builder_rhel-9-golang-1.24-openshift-4.20:
-      as:
-      - registry.ci.openshift.org/ocp/builder:rhel-9-golang-1.24-openshift-4.20
   to: insights-operator
 releases:
   arm64-latest:
@@ -56,7 +41,7 @@ tests:
 - as: insights-operator-e2e-tests-periodic
   cron: 0 0 * * *
   steps:
-    cluster_profile: gcp-3
+    cluster_profile: gcp
     pre:
     - chain: ipi-gcp-pre
     - ref: insights-live
@@ -90,6 +75,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -99,6 +88,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -109,7 +100,7 @@ tests:
 - as: e2e-gcp-techpreview
   cron: 0 0 * * *
   steps:
-    cluster_profile: gcp-3
+    cluster_profile: gcp
     env:
       FEATURE_SET: TechPreviewNoUpgrade
     pre:
@@ -145,6 +136,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -154,6 +149,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -255,6 +252,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -264,6 +265,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -310,6 +313,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -319,6 +326,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -327,7 +336,8 @@ tests:
       timeout: 3h0m0s
     workflow: ipi-vsphere
 - as: e2e-metal-techpreview-ipv4
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 0 0 * * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -340,7 +350,8 @@ tests:
         VM_EXTRADISKS_LIST="vda vdb"
         VM_EXTRADISKS_SIZE=100G
       LVM_OPERATOR_SUB_CHANNEL: stable-4.20
-      LVM_OPERATOR_SUB_SOURCE: qe-app-registry
+      LVM_OPERATOR_SUB_SOURCE: lvm-catalogsource
+      MULTISTAGE_PARAM_OVERRIDE_LVM_INDEX_IMAGE: quay.io/redhat-user-workloads/logical-volume-manag-tenant/lvm-operator-catalog:v4.20
     test:
     - ref: insights-live
     - as: api-insights-tests
@@ -372,6 +383,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -381,6 +396,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -391,7 +408,7 @@ tests:
 - as: gcp-insights-runtime-extractor-tests
   cron: 0 0 * * *
   steps:
-    cluster_profile: gcp-3
+    cluster_profile: gcp
     pre:
     - chain: ipi-gcp-pre
     - ref: insights-live
@@ -425,6 +442,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -434,6 +455,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -478,6 +501,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -487,8 +514,10 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
-      grace_period: 30s
+      grace_period: 31s
       resources:
         requests:
           cpu: 100m
@@ -531,6 +560,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -540,6 +573,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KE
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -584,6 +619,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -593,6 +632,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -601,7 +642,8 @@ tests:
       timeout: 3h0m0s
     workflow: ipi-vsphere
 - as: metal-insights-runtime-extractor-tests-ipv4
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 0 0 * * *
   steps:
     cluster_profile: equinix-ocp-metal
@@ -642,6 +684,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -651,6 +697,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -661,7 +709,7 @@ tests:
 - as: insights-operator-e2e-tests-slow-tests
   cron: 0 0 * * 6
   steps:
-    cluster_profile: gcp-3
+    cluster_profile: gcp
     pre:
     - chain: ipi-gcp-pre
     - ref: insights-live
@@ -691,6 +739,10 @@ tests:
         mount_path: /secret/aws/aws-secret-access-key
         name: aws-secret-access-key
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -700,6 +752,8 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
@@ -753,6 +807,10 @@ tests:
         mount_path: /secret/ocm-access/
         name: insights-ocm-token
         namespace: test-credentials
+      - collection: ""
+        mount_path: /secret/insights-rp-access/
+        name: insights-rp-token
+        namespace: test-credentials
       env:
       - default: /secret/aws/aws-access-key-id/aws-access-key-id
         name: AWS_ACCESS_KEY_ID_PATH
@@ -762,13 +820,14 @@ tests:
         name: AWS_REGION_PATH
       - default: /secret/aws/aws-secret-access-key/aws-secret-access-key
         name: AWS_SECRET_ACCESS_KEY_PATH
+      - default: /secret/insights-rp-access/insights-rp-token
+        name: RP_API_KEY
       from: insights-operator-tests
       grace_period: 30s
       resources:
         requests:
           cpu: 100m
     workflow: cucushift-installer-rehearse-aws-ipi-ovn-hypershift-guest
-  timeout: 8h0m0s
 zz_generated_metadata:
   branch: release-4.20
   org: openshift

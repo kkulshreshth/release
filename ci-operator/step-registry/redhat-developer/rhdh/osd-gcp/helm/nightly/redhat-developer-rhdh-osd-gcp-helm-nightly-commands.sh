@@ -1,10 +1,25 @@
 #!/bin/bash
 set -e
+
+echo "========== Repository, Branch, and PR Variables =========="
+GITHUB_ORG_NAME="redhat-developer"
+echo "GITHUB_ORG_NAME: $GITHUB_ORG_NAME"
+GITHUB_REPOSITORY_NAME="rhdh"
+echo "GITHUB_REPOSITORY_NAME: $GITHUB_REPOSITORY_NAME"
+RELEASE_BRANCH_NAME=$(echo "${JOB_SPEC}" | jq -r '.extra_refs[].base_ref' 2>/dev/null || echo "${JOB_SPEC}" | jq -r '.refs.base_ref')
+echo "RELEASE_BRANCH_NAME: $RELEASE_BRANCH_NAME"
+GIT_PR_NUMBER=$(echo "${JOB_SPEC}" | jq -r '.refs.pulls[0].number')
+echo "GIT_PR_NUMBER: $GIT_PR_NUMBER"
+TAG_NAME=""
+export GITHUB_ORG_NAME GITHUB_REPOSITORY_NAME RELEASE_BRANCH_NAME GIT_PR_NUMBER TAG_NAME
+
+echo "========== Workdir Setup =========="
 export HOME WORKSPACE
 HOME=/tmp
 WORKSPACE=$(pwd)
 cd /tmp || exit
 
+echo "========== Cluster Authentication =========="
 export KUBECONFIG="${SHARED_DIR}/kubeconfig"
 export K8S_CLUSTER_URL K8S_CLUSTER_TOKEN
 K8S_CLUSTER_URL=$(oc whoami --show-server)
@@ -13,22 +28,28 @@ echo "K8S_CLUSTER_URL: $K8S_CLUSTER_URL"
 echo "Note: This cluster will be automatically deleted 4 hours after being claimed."
 echo "To debug issues or log in to the cluster manually, use the script: .ibm/pipelines/ocp-cluster-claim-login.sh"
 
+echo "========== Cluster Service Account and Token Management =========="
 oc create serviceaccount tester-sa-2 -n default
 oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:default:tester-sa-2
 K8S_CLUSTER_TOKEN=$(oc create token tester-sa-2 -n default --duration=4h)
+
+echo "========== Platform Environment Variables =========="
+echo "Setting platform environment variables:"
+export IS_OPENSHIFT="true"
+echo "IS_OPENSHIFT=${IS_OPENSHIFT}"
+export CONTAINER_PLATFORM="osd-gcp"
+echo "CONTAINER_PLATFORM=${CONTAINER_PLATFORM}"
+echo "Getting container platform version"
+CONTAINER_PLATFORM_VERSION=$(oc version --output json 2> /dev/null | jq -r '.openshiftVersion' | cut -d'.' -f1,2 || echo "unknown")
+export CONTAINER_PLATFORM_VERSION
+echo "CONTAINER_PLATFORM_VERSION=${CONTAINER_PLATFORM_VERSION}"
+
+echo "========== Cluster kubeadmin logout =========="
 oc logout
 
-# Prepare to git checkout
-export GIT_PR_NUMBER GITHUB_ORG_NAME GITHUB_REPOSITORY_NAME TAG_NAME
-GIT_PR_NUMBER=$(echo "${JOB_SPEC}" | jq -r '.refs.pulls[0].number')
-echo "GIT_PR_NUMBER : $GIT_PR_NUMBER"
-GITHUB_ORG_NAME="redhat-developer"
-GITHUB_REPOSITORY_NAME="rhdh"
-
-export QUAY_REPO RELEASE_BRANCH_NAME
+echo "========== Git Repository Setup & Checkout =========="
 QUAY_REPO="rhdh-community/rhdh"
-# Get the base branch name based on job.
-RELEASE_BRANCH_NAME=$(echo ${JOB_SPEC} | jq -r '.extra_refs[].base_ref' 2>/dev/null || echo ${JOB_SPEC} | jq -r '.refs.base_ref')
+export QUAY_REPO
 
 # Clone and checkout the specific PR
 git clone "https://github.com/${GITHUB_ORG_NAME}/${GITHUB_REPOSITORY_NAME}.git"
@@ -38,6 +59,7 @@ git checkout "$RELEASE_BRANCH_NAME" || exit
 git config --global user.name "rhdh-qe"
 git config --global user.email "rhdh-qe@redhat.com"
 
+echo "========== PR Branch Handling =========="
 if [ "$JOB_TYPE" == "presubmit" ] && [[ "$JOB_NAME" != rehearse-* ]]; then
     # If executed as PR check of the repository, switch to PR branch.
     git fetch origin pull/"${GIT_PR_NUMBER}"/head:PR"${GIT_PR_NUMBER}"
@@ -47,15 +69,17 @@ if [ "$JOB_TYPE" == "presubmit" ] && [[ "$JOB_NAME" != rehearse-* ]]; then
     LONG_SHA=$(echo "$GIT_PR_RESPONSE" | jq -r '.head.sha')
     SHORT_SHA=$(git rev-parse --short=8 ${LONG_SHA})
     TAG_NAME="pr-${GIT_PR_NUMBER}-${SHORT_SHA}"
-    echo "Tag name: $TAG_NAME"
+    echo "TAG_NAME: $TAG_NAME"
     IMAGE_NAME="${QUAY_REPO}:${TAG_NAME}"
+    echo "IMAGE_NAME: $IMAGE_NAME"
 fi
 
+echo "========== Changeset Analysis =========="
 PR_CHANGESET=$(git diff --name-only $RELEASE_BRANCH_NAME)
 echo "Changeset: $PR_CHANGESET"
 
 # Check if changes are exclusively within the specified directories
-DIRECTORIES_TO_CHECK=".ibm|e2e-tests|docs|.cursor"
+DIRECTORIES_TO_CHECK=".ibm|e2e-tests|docs|.claude|.cursor|.rulesync|.vscode"
 ONLY_IN_DIRS=true
 
 for change in $PR_CHANGESET; do
@@ -66,6 +90,9 @@ for change in $PR_CHANGESET; do
     fi
 done
 
+echo "ONLY_IN_DIRS: $ONLY_IN_DIRS"
+
+echo "========== Image Tag Resolution =========="
 if [[ "$JOB_NAME" == rehearse-* || "$JOB_TYPE" == "periodic" ]]; then
     QUAY_REPO="rhdh/rhdh-hub-rhel9"
     if [ "${RELEASE_BRANCH_NAME}" != "main" ]; then
@@ -74,20 +101,21 @@ if [[ "$JOB_NAME" == rehearse-* || "$JOB_TYPE" == "periodic" ]]; then
     else
         TAG_NAME="next"
     fi
+    echo "TAG_NAME: $TAG_NAME"
 elif [[ "$ONLY_IN_DIRS" == "true" && "$JOB_TYPE" == "presubmit" ]];then
+    QUAY_REPO="rhdh-community/rhdh"
     if [ "${RELEASE_BRANCH_NAME}" != "main" ]; then
-        QUAY_REPO="rhdh/rhdh-hub-rhel9"
-        # Get branch a specific tag name (e.g., 'release-1.5' becomes '1.5')
-        TAG_NAME="$(echo $RELEASE_BRANCH_NAME | cut -d'-' -f2)"
+        # Get branch version (e.g., 'release-1.5' becomes '1.5') and prefix with 'next-'
+        VERSION="$(echo $RELEASE_BRANCH_NAME | cut -d'-' -f2)"
+        TAG_NAME="next-${VERSION}"
     else
-        QUAY_REPO="rhdh-community/rhdh"
         TAG_NAME="next"
     fi
     echo "INFO: Bypassing PR image build wait, using tag: ${TAG_NAME}"
     echo "INFO: Container image will be tagged as: ${QUAY_REPO}:${TAG_NAME}"
 else
     # Timeout configuration for waiting for Docker image availability
-    MAX_WAIT_TIME_SECONDS=$((55*60))    # Maximum wait time of 55 minutes
+    MAX_WAIT_TIME_SECONDS=$((60*60))    # Maximum wait time in minutes * seconds
     POLL_INTERVAL_SECONDS=60      # Check every 60 seconds
 
     ELAPSED_TIME=0
@@ -118,17 +146,10 @@ else
     done
 fi
 
-echo "############## Current branch ##############"
+echo "========== Current branch =========="
 echo "Current branch: $(git branch --show-current)"
 echo "Using Image: ${QUAY_REPO}:${TAG_NAME}"
 
-export NAME_SPACE="showcase-ci-nightly"
-export NAME_SPACE_RBAC="showcase-rbac-nightly"
-export NAME_SPACE_POSTGRES_DB="postgress-external-db-nightly"
-
-if [[ "$JOB_NAME" == *operator* ]]; then
-    NAME_SPACE="showcase-operator-nightly"
-    NAME_SPACE_RBAC="showcase-op-rbac-nightly"
-fi
-
+echo "========== Test Execution =========="
+echo "Executing openshift-ci-tests.sh"
 bash ./.ibm/pipelines/openshift-ci-tests.sh

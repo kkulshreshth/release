@@ -1,7 +1,7 @@
 periodics:
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 3 16 7,16,23,30 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -24,9 +24,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -85,8 +84,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 37 13 3,10,17,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -109,9 +108,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -170,8 +168,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 43 17 4,11,18,25 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -194,9 +192,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -255,8 +252,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 27 21 4,13,20,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -279,9 +276,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -340,8 +336,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 11 17 3,10,17,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -364,9 +360,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -425,8 +420,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 10 16 5,12,19,26 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -449,9 +444,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -510,8 +504,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 35 18 6,15,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -534,9 +528,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -595,8 +588,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 29 13 6,15,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -619,9 +612,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -680,8 +672,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 5 21 1,8,15,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -704,9 +696,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -765,8 +756,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 46 14 1,8,15,22 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -789,9 +780,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -850,8 +840,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 12 13 1,10,17,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -874,9 +864,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -935,8 +924,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 22 19 4,11,18,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -959,9 +948,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -1020,8 +1008,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 32 18 2,9,16,23 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1044,9 +1032,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -1105,8 +1092,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 1 19 4,11,18,25 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1129,9 +1116,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -1190,8 +1176,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 22 20 3,10,17,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1214,9 +1200,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -1275,8 +1260,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 33 17 6,13,20,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1299,9 +1284,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -1360,8 +1344,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 8 13 5,14,21,28 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1384,9 +1368,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -1446,7 +1429,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: build01
-  cron: '@weekly'
+  cron: 11 8 22 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1462,16 +1445,7 @@ periodics:
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-compact-fips-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-compact-fips-f28
   spec:
     containers:
     - args:
@@ -1480,7 +1454,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=nutanix-agent-compact-fips-f7
+      - --target=nutanix-agent-compact-fips-f28
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -1531,7 +1505,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: build01
-  cron: '@weekly'
+  cron: 38 11 24 1,3,5,7,9,11 *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1547,16 +1521,7 @@ periodics:
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-disc-compact-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-disc-compact-f60
   spec:
     containers:
     - args:
@@ -1565,7 +1530,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=nutanix-agent-disc-compact-f7
+      - --target=nutanix-agent-disc-compact-f60
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -1616,7 +1581,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: build01
-  cron: '@weekly'
+  cron: 12 11 24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1632,16 +1597,7 @@ periodics:
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-ha-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-ha-f28
   spec:
     containers:
     - args:
@@ -1650,7 +1606,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=nutanix-agent-ha-f7
+      - --target=nutanix-agent-ha-f28
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -1701,7 +1657,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: build01
-  cron: '@weekly'
+  cron: 44 18 4 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1717,16 +1673,7 @@ periodics:
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-sno-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-nutanix-agent-sno-f28
   spec:
     containers:
     - args:
@@ -1735,7 +1682,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=nutanix-agent-sno-f7
+      - --target=nutanix-agent-sno-f28
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -1785,8 +1732,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build05
-  cron: '@yearly'
+  cluster: build07
+  cron: 2 6 15 */2 *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1795,23 +1742,14 @@ periodics:
     org: openshift-eng
     repo: agent-qe-infra
   labels:
+    capability/intranet: intranet
     ci-operator.openshift.io/cloud: oci-agent-qe
     ci-operator.openshift.io/cloud-cluster-profile: oci-agent-qe
-    ci-operator.openshift.io/cluster: build05
     ci-operator.openshift.io/variant: amd64-nightly
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-5cp-iscsi-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-5cp-iscsi-f60
   spec:
     containers:
     - args:
@@ -1820,7 +1758,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=oci-agent-baremetal-5cp-iscsi-f7
+      - --target=oci-agent-baremetal-5cp-iscsi-f60
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -1870,8 +1808,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build05
-  cron: '@weekly'
+  cluster: build07
+  cron: 8 21 7,21 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1880,23 +1818,14 @@ periodics:
     org: openshift-eng
     repo: agent-qe-infra
   labels:
+    capability/intranet: intranet
     ci-operator.openshift.io/cloud: oci-agent-qe
     ci-operator.openshift.io/cloud-cluster-profile: oci-agent-qe
-    ci-operator.openshift.io/cluster: build05
     ci-operator.openshift.io/variant: amd64-nightly
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-compact-iscsi-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-compact-iscsi-f14
   spec:
     containers:
     - args:
@@ -1905,7 +1834,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=oci-agent-baremetal-compact-iscsi-f7
+      - --target=oci-agent-baremetal-compact-iscsi-f14
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -1955,8 +1884,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build05
-  cron: '@weekly'
+  cluster: build07
+  cron: 23 13 14,28 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -1965,23 +1894,14 @@ periodics:
     org: openshift-eng
     repo: agent-qe-infra
   labels:
+    capability/intranet: intranet
     ci-operator.openshift.io/cloud: oci-agent-qe
     ci-operator.openshift.io/cloud-cluster-profile: oci-agent-qe
-    ci-operator.openshift.io/cluster: build05
     ci-operator.openshift.io/variant: amd64-nightly
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-ha-iscsi-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-ha-iscsi-f14
   spec:
     containers:
     - args:
@@ -1990,7 +1910,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=oci-agent-baremetal-ha-iscsi-f7
+      - --target=oci-agent-baremetal-ha-iscsi-f14
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -2040,8 +1960,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build05
-  cron: '@weekly'
+  cluster: build07
+  cron: 16 21 6,22 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2050,23 +1970,14 @@ periodics:
     org: openshift-eng
     repo: agent-qe-infra
   labels:
+    capability/intranet: intranet
     ci-operator.openshift.io/cloud: oci-agent-qe
     ci-operator.openshift.io/cloud-cluster-profile: oci-agent-qe
-    ci-operator.openshift.io/cluster: build05
     ci-operator.openshift.io/variant: amd64-nightly
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-sno-iscsi-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-baremetal-sno-iscsi-f14
   spec:
     containers:
     - args:
@@ -2075,7 +1986,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=oci-agent-baremetal-sno-iscsi-f7
+      - --target=oci-agent-baremetal-sno-iscsi-f14
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -2125,8 +2036,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build05
-  cron: '@weekly'
+  cluster: build07
+  cron: 1 0 12,26 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2135,23 +2046,14 @@ periodics:
     org: openshift-eng
     repo: agent-qe-infra
   labels:
+    capability/intranet: intranet
     ci-operator.openshift.io/cloud: oci-agent-qe
     ci-operator.openshift.io/cloud-cluster-profile: oci-agent-qe
-    ci-operator.openshift.io/cluster: build05
     ci-operator.openshift.io/variant: amd64-nightly
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-vm-compact-fips-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-vm-compact-fips-f14
   spec:
     containers:
     - args:
@@ -2160,7 +2062,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=oci-agent-vm-compact-fips-f7
+      - --target=oci-agent-vm-compact-fips-f14
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -2210,8 +2112,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build05
-  cron: '@weekly'
+  cluster: build07
+  cron: 31 0 4,18 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2220,23 +2122,14 @@ periodics:
     org: openshift-eng
     repo: agent-qe-infra
   labels:
+    capability/intranet: intranet
     ci-operator.openshift.io/cloud: oci-agent-qe
     ci-operator.openshift.io/cloud-cluster-profile: oci-agent-qe
-    ci-operator.openshift.io/cluster: build05
     ci-operator.openshift.io/variant: amd64-nightly
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-vm-ha-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-vm-ha-f14
   spec:
     containers:
     - args:
@@ -2245,7 +2138,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=oci-agent-vm-ha-f7
+      - --target=oci-agent-vm-ha-f14
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -2295,8 +2188,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build05
-  cron: '@weekly'
+  cluster: build07
+  cron: 34 0 4,18 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2305,23 +2198,14 @@ periodics:
     org: openshift-eng
     repo: agent-qe-infra
   labels:
+    capability/intranet: intranet
     ci-operator.openshift.io/cloud: oci-agent-qe
     ci-operator.openshift.io/cloud-cluster-profile: oci-agent-qe
-    ci-operator.openshift.io/cluster: build05
     ci-operator.openshift.io/variant: amd64-nightly
     ci.openshift.io/generator: prowgen
     job-release: "4.19"
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-vm-sno-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-oci-agent-vm-sno-f14
   spec:
     containers:
     - args:
@@ -2330,7 +2214,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=oci-agent-vm-sno-f7
+      - --target=oci-agent-vm-sno-f14
       - --variant=amd64-nightly
       command:
       - ci-operator
@@ -2381,7 +2265,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 27 12 5,14,21,28 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2403,9 +2287,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -2465,7 +2348,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 48 10 6,15,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2487,9 +2370,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -2549,7 +2431,82 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 29 15 5,12,21,28 * *
+  decorate: true
+  decoration_config:
+    skip_cloning: true
+  extra_refs:
+  - base_ref: release-4.19
+    org: openshift-eng
+    repo: agent-qe-infra
+  labels:
+    ci-operator.openshift.io/cloud: vsphere
+    ci-operator.openshift.io/cloud-cluster-profile: vsphere-elastic
+    ci-operator.openshift.io/variant: amd64-nightly
+    ci.openshift.io/generator: prowgen
+    job-release: "4.19"
+    pj-rehearse.openshift.io/can-be-rehearsed: "true"
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-vsphere-agent-compact-fips-vcf9-f7
+  spec:
+    containers:
+    - args:
+      - --gcs-upload-secret=/secrets/gcs/service-account.json
+      - --image-import-pull-secret=/etc/pull-secret/.dockerconfigjson
+      - --lease-server-credentials-file=/etc/boskos/credentials
+      - --report-credentials-file=/etc/report/credentials
+      - --secret-dir=/secrets/ci-pull-credentials
+      - --target=vsphere-agent-compact-fips-vcf9-f7
+      - --variant=amd64-nightly
+      command:
+      - ci-operator
+      image: quay-proxy.ci.openshift.org/openshift/ci:ci_ci-operator_latest
+      imagePullPolicy: Always
+      name: ""
+      resources:
+        requests:
+          cpu: 10m
+      volumeMounts:
+      - mountPath: /etc/boskos
+        name: boskos
+        readOnly: true
+      - mountPath: /secrets/ci-pull-credentials
+        name: ci-pull-credentials
+        readOnly: true
+      - mountPath: /secrets/gcs
+        name: gcs-credentials
+        readOnly: true
+      - mountPath: /secrets/manifest-tool
+        name: manifest-tool-local-pusher
+        readOnly: true
+      - mountPath: /etc/pull-secret
+        name: pull-secret
+        readOnly: true
+      - mountPath: /etc/report
+        name: result-aggregator
+        readOnly: true
+    serviceAccountName: ci-operator
+    volumes:
+    - name: boskos
+      secret:
+        items:
+        - key: credentials
+          path: credentials
+        secretName: boskos-credentials
+    - name: ci-pull-credentials
+      secret:
+        secretName: ci-pull-credentials
+    - name: manifest-tool-local-pusher
+      secret:
+        secretName: manifest-tool-local-pusher
+    - name: pull-secret
+      secret:
+        secretName: registry-pull-credentials
+    - name: result-aggregator
+      secret:
+        secretName: result-aggregator
+- agent: kubernetes
+  cluster: vsphere02
+  cron: 5 5 4,13,20,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2571,9 +2528,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -2633,7 +2589,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 35 8 6,13,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2655,9 +2611,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -2717,7 +2672,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 11 10 7,14,21,30 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2739,9 +2694,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -2801,7 +2755,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 22 1 4,11,18,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2823,9 +2777,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -2885,7 +2838,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 39 17 6,13,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2907,9 +2860,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -2969,7 +2921,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 1 6 2,9,16,23 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -2991,9 +2943,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3053,7 +3004,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 26 15 5,12,21,28 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3075,9 +3026,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3137,7 +3087,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 36 13 7,14,23,30 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3159,9 +3109,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3221,7 +3170,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 15 7 7,14,21,28 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3243,9 +3192,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3305,7 +3253,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 31 11 6,13,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3327,9 +3275,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3389,7 +3336,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 39 14 6,15,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3411,9 +3358,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3473,7 +3419,82 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 46 11 6,15,22,29 * *
+  decorate: true
+  decoration_config:
+    skip_cloning: true
+  extra_refs:
+  - base_ref: release-4.19
+    org: openshift-eng
+    repo: agent-qe-infra
+  labels:
+    ci-operator.openshift.io/cloud: vsphere
+    ci-operator.openshift.io/cloud-cluster-profile: vsphere-elastic
+    ci-operator.openshift.io/variant: amd64-nightly
+    ci.openshift.io/generator: prowgen
+    job-release: "4.19"
+    pj-rehearse.openshift.io/can-be-rehearsed: "true"
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-vsphere-agent-ha-vcf9-f7
+  spec:
+    containers:
+    - args:
+      - --gcs-upload-secret=/secrets/gcs/service-account.json
+      - --image-import-pull-secret=/etc/pull-secret/.dockerconfigjson
+      - --lease-server-credentials-file=/etc/boskos/credentials
+      - --report-credentials-file=/etc/report/credentials
+      - --secret-dir=/secrets/ci-pull-credentials
+      - --target=vsphere-agent-ha-vcf9-f7
+      - --variant=amd64-nightly
+      command:
+      - ci-operator
+      image: quay-proxy.ci.openshift.org/openshift/ci:ci_ci-operator_latest
+      imagePullPolicy: Always
+      name: ""
+      resources:
+        requests:
+          cpu: 10m
+      volumeMounts:
+      - mountPath: /etc/boskos
+        name: boskos
+        readOnly: true
+      - mountPath: /secrets/ci-pull-credentials
+        name: ci-pull-credentials
+        readOnly: true
+      - mountPath: /secrets/gcs
+        name: gcs-credentials
+        readOnly: true
+      - mountPath: /secrets/manifest-tool
+        name: manifest-tool-local-pusher
+        readOnly: true
+      - mountPath: /etc/pull-secret
+        name: pull-secret
+        readOnly: true
+      - mountPath: /etc/report
+        name: result-aggregator
+        readOnly: true
+    serviceAccountName: ci-operator
+    volumes:
+    - name: boskos
+      secret:
+        items:
+        - key: credentials
+          path: credentials
+        secretName: boskos-credentials
+    - name: ci-pull-credentials
+      secret:
+        secretName: ci-pull-credentials
+    - name: manifest-tool-local-pusher
+      secret:
+        secretName: manifest-tool-local-pusher
+    - name: pull-secret
+      secret:
+        secretName: registry-pull-credentials
+    - name: result-aggregator
+      secret:
+        secretName: result-aggregator
+- agent: kubernetes
+  cluster: vsphere02
+  cron: 46 23 1,8,15,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3495,9 +3516,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3557,7 +3577,7 @@ periodics:
         secretName: result-aggregator
 - agent: kubernetes
   cluster: vsphere02
-  cron: '@weekly'
+  cron: 54 17 4,11,20,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3579,9 +3599,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3640,12 +3659,86 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: vsphere02
+  cron: 26 10 2,9,16,25 * *
   decorate: true
   decoration_config:
     skip_cloning: true
-    timeout: 6h0m0s
+  extra_refs:
+  - base_ref: release-4.19
+    org: openshift-eng
+    repo: agent-qe-infra
+  labels:
+    ci-operator.openshift.io/cloud: vsphere
+    ci-operator.openshift.io/cloud-cluster-profile: vsphere-elastic
+    ci-operator.openshift.io/variant: amd64-nightly
+    ci.openshift.io/generator: prowgen
+    job-release: "4.19"
+    pj-rehearse.openshift.io/can-be-rehearsed: "true"
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-nightly-vsphere-agent-sno-vcf9-f7
+  spec:
+    containers:
+    - args:
+      - --gcs-upload-secret=/secrets/gcs/service-account.json
+      - --image-import-pull-secret=/etc/pull-secret/.dockerconfigjson
+      - --lease-server-credentials-file=/etc/boskos/credentials
+      - --report-credentials-file=/etc/report/credentials
+      - --secret-dir=/secrets/ci-pull-credentials
+      - --target=vsphere-agent-sno-vcf9-f7
+      - --variant=amd64-nightly
+      command:
+      - ci-operator
+      image: quay-proxy.ci.openshift.org/openshift/ci:ci_ci-operator_latest
+      imagePullPolicy: Always
+      name: ""
+      resources:
+        requests:
+          cpu: 10m
+      volumeMounts:
+      - mountPath: /etc/boskos
+        name: boskos
+        readOnly: true
+      - mountPath: /secrets/ci-pull-credentials
+        name: ci-pull-credentials
+        readOnly: true
+      - mountPath: /secrets/gcs
+        name: gcs-credentials
+        readOnly: true
+      - mountPath: /secrets/manifest-tool
+        name: manifest-tool-local-pusher
+        readOnly: true
+      - mountPath: /etc/pull-secret
+        name: pull-secret
+        readOnly: true
+      - mountPath: /etc/report
+        name: result-aggregator
+        readOnly: true
+    serviceAccountName: ci-operator
+    volumes:
+    - name: boskos
+      secret:
+        items:
+        - key: credentials
+          path: credentials
+        secretName: boskos-credentials
+    - name: ci-pull-credentials
+      secret:
+        secretName: ci-pull-credentials
+    - name: manifest-tool-local-pusher
+      secret:
+        secretName: manifest-tool-local-pusher
+    - name: pull-secret
+      secret:
+        secretName: registry-pull-credentials
+    - name: result-aggregator
+      secret:
+        secretName: result-aggregator
+- agent: kubernetes
+  cluster: build07
+  cron: 2 6 16 */2 *
+  decorate: true
+  decoration_config:
+    skip_cloning: true
   extra_refs:
   - base_ref: release-4.19
     org: openshift-eng
@@ -3657,16 +3750,7 @@ periodics:
     ci-operator.openshift.io/variant: amd64-stable
     ci.openshift.io/generator: prowgen
     pj-rehearse.openshift.io/can-be-rehearsed: "true"
-  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-stable-baremetal-ove-compact-agent-ipv4-disc-f7
-  reporter_config:
-    slack:
-      channel: '#team-qe-agent-prow'
-      job_states_to_report:
-      - failure
-      - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+  name: periodic-ci-openshift-eng-agent-qe-infra-release-4.19-amd64-stable-baremetal-ove-compact-agent-ipv4-disc-f60
   spec:
     containers:
     - args:
@@ -3675,7 +3759,7 @@ periodics:
       - --lease-server-credentials-file=/etc/boskos/credentials
       - --report-credentials-file=/etc/report/credentials
       - --secret-dir=/secrets/ci-pull-credentials
-      - --target=baremetal-ove-compact-agent-ipv4-disc-f7
+      - --target=baremetal-ove-compact-agent-ipv4-disc-f60
       - --variant=amd64-stable
       command:
       - ci-operator
@@ -3725,8 +3809,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 49 17 6,13,20,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3748,9 +3832,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3809,8 +3892,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 43 16 5,12,19,26 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3832,9 +3915,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3893,8 +3975,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 28 18 2,11,18,25 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -3916,9 +3998,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -3977,8 +4058,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 11 13 5,12,19,28 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4001,9 +4082,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4062,8 +4142,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 28 13 6,13,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4086,9 +4166,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4147,8 +4226,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 16 19 6,13,20,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4171,9 +4250,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4232,8 +4310,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 21 15 2,9,16,25 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4256,9 +4334,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4317,8 +4394,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 3 13 7,14,21,28 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4341,9 +4418,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4402,8 +4478,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 44 16 6,13,22,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4426,9 +4502,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4487,8 +4562,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 25 13 2,9,16,23 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4511,9 +4586,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4572,8 +4646,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 29 19 2,9,16,23 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4596,9 +4670,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4657,8 +4730,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 50 13 9,16,23,30 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4681,9 +4754,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4742,8 +4814,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 3 15 7,14,23,30 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4765,9 +4837,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4826,8 +4897,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 16 18 6,13,20,27 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4849,9 +4920,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4910,8 +4980,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 2 19 6,13,20,29 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -4933,9 +5003,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -4994,8 +5063,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 25 18 1,8,17,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -5018,9 +5087,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -5079,8 +5147,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 36 16 7,14,23,30 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -5103,9 +5171,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -5164,8 +5231,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 56 13 1,10,17,24 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -5188,9 +5255,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:
@@ -5249,8 +5315,8 @@ periodics:
       secret:
         secretName: result-aggregator
 - agent: kubernetes
-  cluster: build06
-  cron: '@weekly'
+  cluster: build07
+  cron: 22 21 2,11,18,25 * *
   decorate: true
   decoration_config:
     skip_cloning: true
@@ -5273,9 +5339,8 @@ periodics:
       job_states_to_report:
       - failure
       - error
-      report_template: '{{:volcano: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*.
-        <{{.Status.URL}}|View logs> :volcano: {{end}} <!subteam^S09H79P1UMA> Please
-        check'
+      report_template: Job *{{.Spec.Job}}* ended with *{{.Status.State}}*. <{{.Status.URL}}|View
+        logs> <!subteam^S09H79P1UMA> Please check
   spec:
     containers:
     - args:

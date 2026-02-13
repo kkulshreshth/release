@@ -88,7 +88,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/e2e-agnostic-upgrade
     decorate: true
     decoration_config:
@@ -419,7 +419,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-aws-proxy,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
@@ -670,7 +670,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-aws-upgrade,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
@@ -758,7 +758,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/e2e-azure
     decorate: true
     decoration_config:
@@ -842,7 +842,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/e2e-azure-upgrade
     decorate: true
     decoration_config:
@@ -1024,7 +1024,6 @@ presubmits:
     optional: true
     path_alias: github.com/openshift/machine-config-operator
     rerun_command: /test e2e-gcp-op-single-node
-    skip_if_only_changed: ^docs/
     spec:
       containers:
       - args:
@@ -1257,7 +1256,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-gcp-upgrade,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
@@ -1268,9 +1267,9 @@ presubmits:
       skip_cloning: true
     hidden: true
     labels:
+      capability/intranet: intranet
       ci-operator.openshift.io/cloud: packet-edge
       ci-operator.openshift.io/cloud-cluster-profile: packet-assisted
-      ci-operator.openshift.io/cluster: build05
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-priv-machine-config-operator-release-4.8-e2e-metal-assisted
@@ -1342,7 +1341,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-metal-assisted,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
@@ -1353,9 +1352,9 @@ presubmits:
       skip_cloning: true
     hidden: true
     labels:
+      capability/intranet: intranet
       ci-operator.openshift.io/cloud: equinix-ocp-metal
       ci-operator.openshift.io/cloud-cluster-profile: equinix-ocp-metal
-      ci-operator.openshift.io/cluster: build05
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-priv-machine-config-operator-release-4.8-e2e-metal-ipi
@@ -1427,7 +1426,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-metal-ipi,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
@@ -1438,9 +1437,9 @@ presubmits:
       skip_cloning: true
     hidden: true
     labels:
+      capability/intranet: intranet
       ci-operator.openshift.io/cloud: equinix-ocp-metal
       ci-operator.openshift.io/cloud-cluster-profile: equinix-ocp-metal
-      ci-operator.openshift.io/cluster: build05
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-priv-machine-config-operator-release-4.8-e2e-metal-ipi-ovn-dualstack
@@ -1523,9 +1522,9 @@ presubmits:
       skip_cloning: true
     hidden: true
     labels:
+      capability/intranet: intranet
       ci-operator.openshift.io/cloud: equinix-ocp-metal
       ci-operator.openshift.io/cloud-cluster-profile: equinix-ocp-metal
-      ci-operator.openshift.io/cluster: build05
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-priv-machine-config-operator-release-4.8-e2e-metal-ipi-ovn-ipv6
@@ -1769,7 +1768,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/e2e-ovirt
     decorate: true
     decoration_config:
@@ -1853,7 +1852,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/e2e-ovirt-upgrade
     decorate: true
     decoration_config:
@@ -1932,7 +1931,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )(e2e-ovirt-upgrade|remaining-required),?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
@@ -2100,7 +2099,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-vsphere,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
@@ -2272,7 +2271,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/images
     decorate: true
     decoration_config:
@@ -2336,7 +2335,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/unit
     decorate: true
     decoration_config:
@@ -2400,7 +2399,7 @@ presubmits:
     branches:
     - ^release-4\.8$
     - ^release-4\.8-
-    cluster: build05
+    cluster: build07
     context: ci/prow/verify
     decorate: true
     decoration_config:

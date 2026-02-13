@@ -15,6 +15,7 @@ approvers:
 - jbtrystram
 - jlebon
 - jmarrero
+- joelcapitao
 - johan-liebert1
 - jschintag
 - madhu-pillai
@@ -23,6 +24,7 @@ approvers:
 - peacerebel
 - prestist
 - ravanelli
+- rolv-apneseth
 - roshan-r
 - tlbueno
 - travier
@@ -39,6 +41,7 @@ reviewers:
 - jbtrystram
 - jlebon
 - jmarrero
+- joelcapitao
 - johan-liebert1
 - jschintag
 - madhu-pillai
@@ -47,6 +50,7 @@ reviewers:
 - peacerebel
 - prestist
 - ravanelli
+- rolv-apneseth
 - roshan-r
 - tlbueno
 - travier

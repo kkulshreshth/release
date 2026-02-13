@@ -5,8 +5,6 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
-LATEST_RELEASE="$(curl -s "https://api.github.com/repos/openshift/release/contents/ci-operator/config/openshift/release?ref=master" | jq -r '.[].name' | grep -E '^openshift-release-master__nightly-[0-9]+\.[0-9]+\.yaml$' | sed -E 's/^openshift-release-master__nightly-([0-9]+\.[0-9]+)\.yaml$/\1/' | sort -V | tail -n1)"
-export LATEST_RELEASE
 build_images(){
 oc delete namespace openshift-ptp || true
 oc create namespace openshift-ptp -o yaml | oc label -f - pod-security.kubernetes.io/enforce=privileged pod-security.kubernetes.io/audit=privileged pod-security.kubernetes.io/warn=privileged || true
@@ -87,7 +85,6 @@ spec:
 
           export IMG=PTP_IMAGE
           export T5CI_VERSION="T5CI_VERSION_VAL"
-          export LATEST_RELEASE="LATEST_RELEASE_VAL"
           export USE_UPSTREAM="USE_UPSTREAM_VAL"
 
           # run latest release on upstream main branch
@@ -139,7 +136,6 @@ spec:
   jobdefinition=$(sed "s#OPERATOR_VERSION#${PTP_UNDER_TEST_BRANCH}#" <<<"$jobdefinition")
   jobdefinition=$(sed "s#PTP_IMAGE#${IMG}#" <<<"$jobdefinition")
   jobdefinition=$(sed "s#T5CI_VERSION_VAL#${T5CI_VERSION}#" <<<"$jobdefinition")
-  jobdefinition=$(sed "s#LATEST_RELEASE_VAL#${LATEST_RELEASE}#" <<<"$jobdefinition")
   jobdefinition=$(sed "s#USE_UPSTREAM_VAL#${T5CI_DEPLOY_UPSTREAM:-false}#" <<<"$jobdefinition")
   #oc label ns openshift-ptp --overwrite pod-security.kubernetes.io/enforce=privileged
 
@@ -163,16 +159,15 @@ spec:
     sleep $sleep_time
   done
 
+  # print the build logs
+  oc -n openshift-ptp logs podman
+
   if [[ $success -eq 1 ]]; then
     echo "[INFO] index build succeeded"
   else
     echo "[ERROR] index build failed"
     exit 1
   fi
-
-  # print the build logs
-  oc -n openshift-ptp logs podman
-
 }
 
 # Define the function to retry a command with a timeout
@@ -303,12 +298,18 @@ if [[ "$T5CI_VERSION" =~ 4.1[2-8]+ ]]; then
   echo "Version is less than 4.19"
   # release-4.18 consumer image supports event API v1
   export CONSUMER_IMG="quay.io/redhat-cne/cloud-event-consumer:release-4.18"
-  TEST_MODES=("dualnicbc" "bc" "oc")
+  TEST_MODES=("dualnicbc" "dualnicbcha" "bc" "oc")
+
+  # DualNICBoundaryClockHA test mode is only supported from 4.16 onwards,
+  # so if the version is less than 4.16, remove it from the list
+  if [[ "$T5CI_VERSION" =~ 4.1[2-5] ]]; then
+    TEST_MODES=("${TEST_MODES[@]/dualnicbcha}")
+  fi
 else
   echo "Version is 4.19 or greater"
   export CONSUMER_IMG="quay.io/redhat-cne/cloud-event-consumer:latest"
   # Only run tgm and dualfollower tests from 4.19 onwards
-  TEST_MODES=("tgm" "dualfollower" "dualnicbc" "bc" "oc")
+  TEST_MODES=("tgm" "dualfollower" "dualnicbc" "dualnicbcha" "bc" "oc")
 fi
 
 # wait for the linuxptp-daemon to be deployed
@@ -370,6 +371,13 @@ soaktest:
             cpu_threshold_mcores: 40
     desc: "The test measures PTP CPU usage and fails if >15mcores"
 EOF
+
+
+# Setup log collection with test markers
+export COLLECT_POD_LOGS=${COLLECT_POD_LOGS:-true}
+export LOG_TEST_MARKERS=true
+export LOG_ARTIFACTS_DIR="${ARTIFACT_DIR}/pod-logs"
+mkdir -p $LOG_ARTIFACTS_DIR
 
 # Set output directory
 export JUNIT_OUTPUT_DIR=${ARTIFACT_DIR}

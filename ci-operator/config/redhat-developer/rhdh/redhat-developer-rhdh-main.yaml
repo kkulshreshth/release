@@ -2,7 +2,7 @@ build_root:
   image_stream_tag:
     name: release
     namespace: openshift
-    tag: golang-1.22
+    tag: rhel-9-release-golang-1.22-openshift-4.19
   use_build_cache: true
 releases:
   latest:
@@ -19,7 +19,8 @@ resources:
       cpu: "2"
       memory: 2Gi
 tests:
-- as: e2e-ocp-helm
+- always_run: false
+  as: e2e-ocp-helm
   cluster_claim:
     architecture: amd64
     cloud: aws
@@ -29,13 +30,13 @@ tests:
     product: ocp
     timeout: 1h0m0s
     version: "4.18"
-  skip_if_only_changed: ^docs/|showcase-docs/|^\.changeset/|CONTRIBUTING\.md|OWNERS|README\.md|USAGE_DATA\.md|^scripts/|^\.github/|\.threatmodel/|^ui/|\.md|\\.mdc|\\.toml$
+  skip_if_only_changed: ^docs/|rpms\.lock\.yaml|showcase-docs/|^\.changeset/|CONTRIBUTING\.md|OWNERS|README\.md|USAGE_DATA\.md|^scripts/|^\.github/|\.threatmodel/|^ui/|\.md|\\.mdc|\\.toml$
   steps:
     post:
     - ref: redhat-developer-rhdh-send-data-router
     - chain: gather
     test:
-    - ref: redhat-developer-rhdh-ocp-helm-pull
+    - ref: redhat-developer-rhdh-ocp-helm
     workflow: generic-claim
 - always_run: false
   as: e2e-ocp-helm-nightly
@@ -48,7 +49,7 @@ tests:
     product: ocp
     timeout: 1h0m0s
     version: "4.18"
-  cron: 0 7 * * *
+  cron: 0 4 * * *
   optional: true
   presubmit: true
   steps:
@@ -70,7 +71,7 @@ tests:
     product: ocp
     timeout: 1h0m0s
     version: "4.17"
-  cron: 0 9 * * TUE,THU,SAT,SUN
+  cron: 0 6 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -94,7 +95,7 @@ tests:
     product: ocp
     timeout: 1h0m0s
     version: "4.19"
-  cron: 0 8 * * TUE,THU,SAT,SUN
+  cron: 0 5 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -108,8 +109,32 @@ tests:
     - ref: redhat-developer-rhdh-ocp-helm-nightly
     workflow: generic-claim
 - always_run: false
+  as: e2e-ocp-v4-20-helm-nightly
+  cluster_claim:
+    architecture: amd64
+    cloud: aws
+    labels:
+      region: us-east-2
+    owner: rhdh
+    product: ocp
+    timeout: 1h0m0s
+    version: "4.20"
+  cron: 0 5 * * TUE,THU,SAT,SUN
+  optional: true
+  presubmit: true
+  steps:
+    env:
+      OC_CLIENT_VERSION: stable-4.20
+    post:
+    - ref: redhat-developer-rhdh-send-data-router
+    - ref: redhat-developer-rhdh-send-alert
+    - chain: gather
+    test:
+    - ref: redhat-developer-rhdh-ocp-helm-nightly
+    workflow: generic-claim
+- always_run: false
   as: e2e-aks-helm-nightly
-  cron: 50 6 * * TUE,THU,SAT,SUN
+  cron: 50 3 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -122,7 +147,7 @@ tests:
     workflow: redhat-developer-rhdh-aks-mapt
 - always_run: false
   as: e2e-aks-operator-nightly
-  cron: 0 7 * * TUE,THU,SAT,SUN
+  cron: 0 4 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -135,7 +160,7 @@ tests:
     workflow: redhat-developer-rhdh-aks-mapt
 - always_run: false
   as: e2e-eks-helm-nightly
-  cron: 0 7 * * TUE,THU,SAT,SUN
+  cron: 0 4 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -148,7 +173,7 @@ tests:
     workflow: redhat-developer-rhdh-eks-mapt
 - always_run: false
   as: e2e-eks-operator-nightly
-  cron: 0 7 * * TUE,THU,SAT,SUN
+  cron: 0 4 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -161,7 +186,7 @@ tests:
     workflow: redhat-developer-rhdh-eks-mapt
 - always_run: false
   as: e2e-gke-helm-nightly
-  cron: 0 7 * * TUE,THU,SAT,SUN
+  cron: 0 4 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -172,7 +197,7 @@ tests:
     - ref: redhat-developer-rhdh-gke-helm-nightly
 - always_run: false
   as: e2e-gke-operator-nightly
-  cron: 0 9 * * TUE,THU,SAT,SUN
+  cron: 0 6 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -192,7 +217,7 @@ tests:
     product: ocp
     timeout: 1h0m0s
     version: "4.18"
-  cron: 0 8 * * TUE,THU,SAT,SUN
+  cron: 0 5 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -225,7 +250,7 @@ tests:
     - ref: redhat-developer-rhdh-eks-mapt-orphaned-destroy
 - always_run: false
   as: e2e-osd-gcp-helm-nightly
-  cron: 0 10 * * TUE,THU,SAT,SUN
+  cron: 30 7 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -238,10 +263,9 @@ tests:
     test:
     - ref: redhat-developer-rhdh-osd-gcp-helm-nightly
     workflow: redhat-developer-rhdh-osd-gcp-claim-cluster
-  timeout: 3h40m0s
 - always_run: false
   as: e2e-osd-gcp-operator-nightly
-  cron: 0 8 * * TUE,THU,SAT,SUN
+  cron: 30 5 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
@@ -254,13 +278,11 @@ tests:
     test:
     - ref: redhat-developer-rhdh-osd-gcp-helm-nightly
     workflow: redhat-developer-rhdh-osd-gcp-claim-cluster
-  timeout: 3h40m0s
 - as: cleanup-osd-gcp-cluster
-  cron: 0 17 * * *
+  cron: 0 14 * * *
   steps:
     test:
     - ref: redhat-developer-rhdh-osd-gcp-claim-cluster-cleanup
-  timeout: 1h0m0s
 - always_run: false
   as: e2e-ocp-operator-auth-providers-nightly
   cluster_claim:
@@ -272,12 +294,12 @@ tests:
     product: ocp
     timeout: 1h0m0s
     version: "4.18"
-  cron: 0 7 * * TUE,THU,SAT,SUN
+  cron: 0 4 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
     test:
-    - ref: redhat-developer-rhdh-ocp-helm-nightly
+    - ref: redhat-developer-rhdh-ocp-operator-nightly
     workflow: generic-claim
 - always_run: false
   as: e2e-ocp-helm-upgrade-nightly
@@ -290,30 +312,12 @@ tests:
     product: ocp
     timeout: 1h0m0s
     version: "4.18"
-  cron: 0 8 * * TUE,THU,SAT,SUN
+  cron: 0 4 * * TUE,THU,SAT,SUN
   optional: true
   presubmit: true
   steps:
     test:
     - ref: redhat-developer-rhdh-ocp-helm-upgrade-nightly
-    workflow: generic-claim
-- always_run: false
-  as: e2e-ocp-helm-sealights-nightly
-  cluster_claim:
-    architecture: amd64
-    cloud: aws
-    labels:
-      region: us-east-2
-    owner: rhdh
-    product: ocp
-    timeout: 1h0m0s
-    version: "4.18"
-  cron: 0 7 * * *
-  optional: true
-  presubmit: true
-  steps:
-    test:
-    - ref: redhat-developer-rhdh-ocp-helm-nightly
     workflow: generic-claim
 zz_generated_metadata:
   branch: main

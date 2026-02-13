@@ -12,7 +12,6 @@ presubmits:
       oauth_token_secret:
         key: oauth
         name: github-credentials-openshift-ci-robot-private-git-cloner
-      timeout: 3h0m0s
     hidden: true
     labels:
       ci-operator.openshift.io/cloud: aws
@@ -84,7 +83,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-aws-live-migration-sdn-ovn,?($|\s.*)
   - agent: kubernetes
-    always_run: true
+    always_run: false
     branches:
     - ^release-4\.15$
     - ^release-4\.15-
@@ -95,7 +94,6 @@ presubmits:
       oauth_token_secret:
         key: oauth
         name: github-credentials-openshift-ci-robot-private-git-cloner
-      timeout: 4h0m0s
     hidden: true
     labels:
       ci-operator.openshift.io/cloud: aws
@@ -510,7 +508,7 @@ presubmits:
     hidden: true
     labels:
       ci-operator.openshift.io/cloud: gcp
-      ci-operator.openshift.io/cloud-cluster-profile: gcp-3
+      ci-operator.openshift.io/cloud-cluster-profile: gcp
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-priv-sdn-release-4.15-e2e-gcp-sdn
@@ -582,7 +580,7 @@ presubmits:
     branches:
     - ^release-4\.15$
     - ^release-4\.15-
-    cluster: build11
+    cluster: build10
     context: ci/prow/images
     decorate: true
     decoration_config:
@@ -645,7 +643,7 @@ presubmits:
     branches:
     - ^release-4\.15$
     - ^release-4\.15-
-    cluster: build11
+    cluster: build10
     context: ci/prow/security
     decorate: true
     decoration_config:
@@ -716,7 +714,7 @@ presubmits:
     branches:
     - ^release-4\.15$
     - ^release-4\.15-
-    cluster: build11
+    cluster: build10
     context: ci/prow/unit
     decorate: true
     decoration_config:
@@ -779,7 +777,7 @@ presubmits:
     branches:
     - ^release-4\.15$
     - ^release-4\.15-
-    cluster: build11
+    cluster: build10
     context: ci/prow/verify
     decorate: true
     decoration_config:
@@ -842,7 +840,7 @@ presubmits:
     branches:
     - ^release-4\.15$
     - ^release-4\.15-
-    cluster: build11
+    cluster: build10
     context: ci/prow/verify-deps
     decorate: true
     decoration_config:

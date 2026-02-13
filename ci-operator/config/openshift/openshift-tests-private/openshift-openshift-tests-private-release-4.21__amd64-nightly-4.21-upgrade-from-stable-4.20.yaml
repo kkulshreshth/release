@@ -4,7 +4,7 @@ base_images:
     namespace: ocp
     tag: ansible
   assisted-service-scripts:
-    name: ocm-2.13
+    name: ocm-2.15
     namespace: edge-infrastructure
     tag: assisted-service-scripts
   aws-efs-csi-operator-create-efs:
@@ -77,6 +77,18 @@ resources:
       cpu: 100m
       memory: 200Mi
 tests:
+- as: aws-ipi-disconnected-pin-mco-f60
+  cron: 22 18 2 * *
+  steps:
+    cluster_profile: aws-qe
+    env:
+      BASE_DOMAIN: qe.devcluster.openshift.com
+      EXTRACT_MANIFEST_INCLUDED: "true"
+      MCO_CONF_DAY2_PINTARGETRELEASE: "true"
+      MCO_CONF_DAY2_PINTARGETRELEASE_REMOVE_PULLSECRET: "true"
+    test:
+    - chain: openshift-upgrade-qe-sanity-disconnected
+    workflow: cucushift-installer-rehearse-aws-ipi-disconnected-private
 - as: aws-c2s-ipi-disc-priv-fips-f28
   cron: 46 2 4 * *
   steps:
@@ -361,6 +373,7 @@ tests:
     env:
       TEST_FILTERS: ~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&
     test:
+    - ref: cucushift-hypershift-extended-mirror-release-images-to-acr-upgrade
     - chain: openshift-upgrade-qe-test-hypershift
     workflow: cucushift-installer-rehearse-azure-aks-hypershift-registry-overrides-guest
 - as: azure-ipi-confidential-trustedlaunch-f28
@@ -538,7 +551,8 @@ tests:
     - chain: openshift-upgrade-qe-test
     workflow: baremetal-lab-upi
 - as: baremetalds-ipi-ovn-dualstack-primaryv6-f999
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 8 8 29 2 *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -552,7 +566,8 @@ tests:
     - chain: openshift-upgrade-qe-test
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-ipv4-fips-canary-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 53 14 3 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -565,7 +580,8 @@ tests:
     - chain: openshift-upgrade-qe-test-canary
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-ipv6-fips-f999
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 8 8 29 2 *
   steps:
     cluster_profile: equinix-ocp-metal-qe
@@ -580,13 +596,14 @@ tests:
     - chain: openshift-upgrade-qe-test
     workflow: cucushift-installer-rehearse-baremetalds-ipi-ovn
 - as: baremetalds-ipi-ovn-lvms-f28
-  cluster: build05
+  capabilities:
+  - intranet
   cron: 2 5 13 * *
   steps:
     cluster_profile: equinix-ocp-metal-qe
     env:
       LVM_OPERATOR_SUB_CHANNEL: stable-4.20
-      LVM_OPERATOR_SUB_SOURCE: qe-app-registry
+      LVM_OPERATOR_SUB_SOURCE: lvm-catalogsource
       TEST_FILTERS: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~StagerunOnly;~LSO&;STORAGE&
     test:
     - chain: openshift-upgrade-qe-test
@@ -941,17 +958,6 @@ tests:
     test:
     - chain: openshift-upgrade-qe-test
     workflow: cucushift-installer-rehearse-vsphere-ipi-ovn-custom-transit-switch-masquerade-subnet
-- as: vsphere-ipi-vsphere7-f28
-  cron: 23 10 16 * *
-  steps:
-    cluster_profile: vsphere-elastic
-    env:
-      HOSTS: "2"
-      NETWORK_TYPE: nested-multi-tenant
-      VCENTER_VERSION: "7"
-    test:
-    - chain: openshift-upgrade-qe-test
-    workflow: cucushift-installer-rehearse-vsphere-ipi-nested
 - as: vsphere-ipi-zones-template-f28
   cron: 16 5 26 * *
   steps:

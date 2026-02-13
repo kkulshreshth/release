@@ -18,6 +18,9 @@ cluster_groups:
   - build01
   - build02
 groups:
+  ai-rhoai-dev:
+    clusters:
+    - app.ci
   aos-qe:
     clusters:
     - app.ci
@@ -27,6 +30,9 @@ groups:
   build-api-team:
     clusters:
     - app.ci
+  cincinnati-ci-admins:
+    cluster_groups:
+    - build-farm
   containers:
     cluster_groups:
     - dp-managed
@@ -68,15 +74,20 @@ groups:
   multiarch-pool-admins:
     clusters:
     - hosted-mgmt
+  obs-cloud-management:
+    clusters:
+    - hosted-mgmt
   ocp-mco:
     clusters:
     - build02
   ocp-perfscale:
     clusters:
     - app.ci
+  ocp-sustaining-jenkins-admins:
+    clusters:
+    - app.ci
   ofcir-admin:
     clusters:
-    - build05
     - core-ci
   okd-admins:
     clusters:
@@ -141,6 +152,9 @@ groups:
   rh-ecosystem-edge-pool-admins:
     clusters:
     - hosted-mgmt
+  rh-kata-dev:
+    clusters:
+    - app.ci
   rh-openshift-ecosystem:
     clusters:
     - app.ci
@@ -177,7 +191,7 @@ groups:
     - app.ci
   telco5g-ci:
     clusters:
-    - build05
+    - app.ci
   telcov10n-ci-viewers:
     clusters:
     - app.ci
@@ -190,6 +204,8 @@ groups:
   test-platform-gsm-secrets-owners:
     secret_collections:
     - test-platform-infra
+    - psalajova-first-secret
+    - psalajova-second-secret
   two-node-openshift:
     clusters:
     - app.ci

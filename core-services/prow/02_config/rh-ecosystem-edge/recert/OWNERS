@@ -7,28 +7,34 @@
 filters:
   .*:
     approvers:
+    - danmanor
     - mresvanis
     - omertuc
     - tsorya
     reviewers:
+    - danmanor
     - mresvanis
     - omertuc
     - tsorya
   .konflux/*:
     approvers:
     - abraham2512
+    - by2waysprojects
     - fontivan
     - shajmakh
     - yanirq
     reviewers:
+    - by2waysprojects
     - fontivan
   .tekton/*:
     approvers:
     - abraham2512
+    - by2waysprojects
     - fontivan
     - shajmakh
     - yanirq
     reviewers:
+    - by2waysprojects
     - fontivan
   ^Dockerfile:
     labels:
@@ -36,17 +42,21 @@ filters:
   renovate.json:
     approvers:
     - abraham2512
+    - by2waysprojects
     - fontivan
     - shajmakh
     - yanirq
     reviewers:
+    - by2waysprojects
     - fontivan
   telco5g-konflux/:
     approvers:
     - abraham2512
+    - by2waysprojects
     - fontivan
     - shajmakh
     - yanirq
     reviewers:
+    - by2waysprojects
     - fontivan
 options: {}

@@ -6,13 +6,14 @@
 
 approvers:
 - abyrne55
-- bdematte
+- alexsmithgh
 - bergmannf
 - bmeng
 - bng0y
 - clcollins
 - dakotalongrh
 - dustman9000
+- eth1030
 - iamkirkbater
 - joshbranham
 - luis-falcon
@@ -27,14 +28,15 @@ approvers:
 options: {}
 reviewers:
 - abyrne55
+- alexsmithgh
 - bergmannf
 - bmeng
 - bng0y
 - clcollins
 - dakotalongrh
 - dustman9000
+- eth1030
 - iamkirkbater
-- jbpratt
 - joshbranham
 - luis-falcon
 - rafael-azevedo
